@@ -86,12 +86,14 @@ class WlmDataTable extends StatelessWidget {
   }
 }
 
+/// Wolwoloom data column class.
 class WlmDataColumn {
   const WlmDataColumn({required this.label, this.flex = 1});
   final String label;
   final int flex;
 }
 
+/// Wolwoloom data row class.
 class WlmDataRow {
   const WlmDataRow({required this.cells});
   final List<Widget> cells;

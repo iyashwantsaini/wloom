@@ -9,6 +9,7 @@ import '../tokens/wlm_colors.dart';
 /// container( color: wlm.hairline, ... );
 /// ```
 @immutable
+/// Wolwoloom theme extension class.
 class WlmThemeExtension extends ThemeExtension<WlmThemeExtension> {
   const WlmThemeExtension({
     required this.hairline,

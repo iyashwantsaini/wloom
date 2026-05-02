@@ -4,6 +4,7 @@ import '../../theme/wlm_theme_extension.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
+/// Wolwoloom callout tone enum.
 enum WlmCalloutTone { info, success, warning, danger, neutral }
 
 /// Inline informational card. A coloured hairline border and matching

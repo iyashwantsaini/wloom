@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
+/// Wolwoloom tab class.
 class WlmTab {
   const WlmTab({required this.label, this.icon});
   final String label;

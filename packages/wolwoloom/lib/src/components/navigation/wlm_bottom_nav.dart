@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
+/// Wolwoloom nav item class.
 class WlmNavItem {
   const WlmNavItem({
     required this.icon,

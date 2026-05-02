@@ -31,8 +31,10 @@ class WlmPopover extends StatefulWidget {
   State<WlmPopover> createState() => _WlmPopoverState();
 }
 
+/// Wolwoloom popover alignment enum.
 enum WlmPopoverAlignment { below, above, belowEnd, aboveEnd }
 
+/// Wolwoloom popover controller class.
 class WlmPopoverController extends ChangeNotifier {
   bool _open = false;
   bool get isOpen => _open;

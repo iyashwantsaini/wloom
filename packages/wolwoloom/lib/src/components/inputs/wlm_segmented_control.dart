@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
+/// Wolwoloom segment class.
 class WlmSegment<T> {
   const WlmSegment({required this.value, required this.label, this.icon});
   final T value;

@@ -124,6 +124,8 @@ class WlmSurface extends StatelessWidget {
   }
 }
 
+/// Wolwoloom surface border enum.
 enum WlmSurfaceBorder { none, hairline, bold }
 
+/// Wolwoloom surface shadow enum.
 enum WlmSurfaceShadow { none, soft, medium }

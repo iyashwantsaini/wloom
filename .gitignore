@@ -40,3 +40,6 @@ reference/wolwo/
 __pycache__/
 *.pyc
 
+
+.pana.json
+.pana.txt

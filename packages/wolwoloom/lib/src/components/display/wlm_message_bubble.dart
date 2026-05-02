@@ -4,8 +4,10 @@ import '../../theme/wlm_theme_extension.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
+/// Wolwoloom message side enum.
 enum WlmMessageSide { incoming, outgoing }
 
+/// Wolwoloom message status enum.
 enum WlmMessageStatus { sending, sent, delivered, read, failed }
 
 /// A chat message bubble with hairline borders and mono caption.

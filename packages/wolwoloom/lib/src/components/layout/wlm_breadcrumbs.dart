@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
+/// Wolwoloom crumb class.
 class WlmCrumb {
   const WlmCrumb(this.label, {this.onTap});
   final String label;
