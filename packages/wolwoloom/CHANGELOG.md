@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4 — pub.dev release
+
+* **Docs** — every public class now has a dartdoc comment (100% coverage).
+* **Pub metadata** — tighter description, package README rewritten with install / usage / showcase blocks and pub badges.
+* **CI** — first release published via the new trusted-publish workflow on `wolwoloom-v*` tags.
+
 ## 0.3.3 — polish & branding
 
 * **Catalog** — hero CTA row uses `Wrap` so the WIDGETBOOK ghost button no longer overflows on narrow viewports.

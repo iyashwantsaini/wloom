@@ -2,14 +2,18 @@
 
 > An editorial / typewriter-flavored Flutter design system. Mono typography, hairline borders, ink-on-paper palette with a periwinkle accent. Extracted from the [`wolwo`](https://github.com/iyashwantsaini/wolwo) wallpaper app.
 
+[![pub package](https://img.shields.io/pub/v/wolwoloom.svg)](https://pub.dev/packages/wolwoloom)
+[![pub points](https://img.shields.io/pub/points/wolwoloom)](https://pub.dev/packages/wolwoloom/score)
+[![pub likes](https://img.shields.io/pub/likes/wolwoloom)](https://pub.dev/packages/wolwoloom/score)
 [![CI](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/ci.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/ci.yml)
 [![Pages](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/pages.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/pages.yml)
-[![Release](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/release.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/release.yml)
+[![Publish](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/publish.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/publish.yml)
 [![Flutter](https://img.shields.io/badge/Flutter-3.24%2B-02569B?logo=flutter)](https://flutter.dev)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 **Showcase** —
 
+* Package on pub.dev → **<https://pub.dev/packages/wolwoloom>**
 * Live web gallery → **<https://iyashwantsaini.github.io/WolwoLoom/>** (auto-deploys on every push to `main`).
 * Android APKs (catalog app + widgetbook) → **[Releases](https://github.com/iyashwantsaini/WolwoLoom/releases/latest)** (built on every `v*` tag).
 
@@ -25,13 +29,15 @@ MaterialApp(
 
 ## Install
 
-```yaml
-dependencies:
-  wolwoloom: ^0.3.1
-```
-
 ```sh
 flutter pub add wolwoloom
+```
+
+or pin in `pubspec.yaml`:
+
+```yaml
+dependencies:
+  wolwoloom: ^0.3.4
 ```
 
 ## Showcase
