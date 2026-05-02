@@ -22,7 +22,21 @@ class ExampleApp extends StatefulWidget {
 }
 
 class _ExampleAppState extends State<ExampleApp> {
-  ThemeMode _mode = ThemeMode.system;
+  ThemeMode _mode = _initialMode();
+
+  static ThemeMode _initialMode() {
+    // Allow `?theme=light|dark|system` in the URL — useful for screenshots.
+    try {
+      final v = Uri.base.queryParameters['theme'];
+      return switch (v) {
+        'light' => ThemeMode.light,
+        'dark' => ThemeMode.dark,
+        _ => ThemeMode.system,
+      };
+    } catch (_) {
+      return ThemeMode.system;
+    }
+  }
 
   void _toggle() {
     setState(() {

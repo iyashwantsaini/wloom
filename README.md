@@ -45,8 +45,6 @@ Two apps live in this repo and are both built by CI on every push to `main`:
 
 ### Screenshots
 
-> Add real screenshots to `docs/screenshots/` (PNG, ~390×844). The README references the filenames below — drop replacements in and they'll show up automatically.
-
 | Catalog (light) | Catalog (dark) | Widgetbook (web) |
 | --- | --- | --- |
 | ![Catalog light](docs/screenshots/catalog-light.png) | ![Catalog dark](docs/screenshots/catalog-dark.png) | ![Widgetbook](docs/screenshots/widgetbook-web.png) |
