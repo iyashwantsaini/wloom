@@ -27,3 +27,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Reference clone (regenerable via git clone https://github.com/iyashwantsaini/wolwo.git reference/wolwo)
+reference/wolwo/
+

@@ -1,0 +1,8 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    require_trailing_commas: true
+    prefer_single_quotes: true
+    sort_child_properties_last: true
