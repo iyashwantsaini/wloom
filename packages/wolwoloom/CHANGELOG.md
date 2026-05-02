@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0 — components, components, components
+
+* **Theme** — `WlmThemeExtension` registered on every `WlmTheme` for typed access to hairline / muted / accent / success / warning / danger / info colors.
+* **Responsive** — `WlmBreakpoint` enum + `WlmResponsive` builder for adaptive layouts.
+* **Inputs** — `WlmCheckbox`, `WlmRadio<T>`, `WlmSegmentedControl<T>`, `WlmDropdown<T>`, `WlmSlider`, `WlmStepper`, `WlmDateField`, `WlmRating`.
+* **Display** — `WlmAvatar`, `WlmAvatarStack`, `WlmTag`, `WlmKbd`, `WlmStat`, `WlmCallout`, `WlmCodeBlock`, `WlmProgressBar`, `WlmProgressRing`, `WlmTooltip`.
+* **Layout** — `WlmAppBar`, `WlmAppScaffold`, `WlmAccordion`, `WlmBreadcrumbs`, `WlmDrawer`.
+* **Lists** — `WlmCheckboxTile`, `WlmRadioTile`.
+* **Feedback** — `WlmBanner`, `WlmToast` (lightweight overlay), `WlmEmptyState`, `WlmErrorState`.
+* **Navigation** — `WlmTabBar`, `WlmShell` (adaptive bottom-nav / NavigationRail).
+* **Buttons** — `WlmFab`.
+* Widgetbook gallery extended with use cases for every new component.
+* Foundational widget tests added.
+
 ## 0.1.0 — initial release
 
 * Design tokens: spacing, radii, hairline, motion durations.

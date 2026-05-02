@@ -25,20 +25,20 @@ dependencies:
 flutter pub add wolwoloom
 ```
 
-## Components (v0.1)
+## Components
 
-| Group        | Widgets                                                                                              |
-| ------------ | ---------------------------------------------------------------------------------------------------- |
-| Foundations  | `WlmTokens`, `WlmColors`, `WlmType`, `WlmMotion`, `WlmTheme`                                         |
-| Buttons      | `WlmPrimaryButton`, `WlmSecondaryButton`, `WlmGhostButton`, `WlmIconButton`, `WlmHeaderIconButton`   |
-| Inputs       | `WlmTextField`, `WlmSearchField`, `WlmKeyField`                                                      |
-| Display      | `WlmBadge`, `WlmChip`, `WlmPill`, `WlmSpecRow`, `WlmDivider`                                         |
-| Layout       | `WlmCard`, `WlmPageHeader`, `WlmSectionLabel`                                                        |
-| Lists        | `WlmListTile`, `WlmActionRow`, `WlmSwitchTile`                                                       |
-| Feedback     | `WlmLoader`, `WlmScanBar`, `WlmSkeleton`, `WlmGridSkeleton`, `WlmSnack`                              |
-| Navigation   | `WlmBottomNav`, `WlmStepDots`                                                                        |
-| Overlays     | `showWlmBottomSheet`, `WlmDialog`                                                                    |
-| Media        | `WlmNetworkImage`, `WlmProgressiveImage`, `WlmMasonryGrid`                                           |
+| Group        | Widgets                                                                                                                                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Foundations  | `WlmTokens`, `WlmColors`, `WlmType`, `WlmMotion`, `WlmTheme`, `WlmThemeExtension`, `WlmBreakpoint`, `WlmResponsive`                                                                                    |
+| Buttons      | `WlmPrimaryButton`, `WlmSecondaryButton`, `WlmGhostButton`, `WlmIconButton`, `WlmHeaderIconButton`, `WlmFab`                                                                                           |
+| Inputs       | `WlmTextField`, `WlmSearchField`, `WlmKeyField`, `WlmCheckbox`, `WlmRadio`, `WlmSegmentedControl`, `WlmDropdown`, `WlmSlider`, `WlmStepper`, `WlmDateField`, `WlmRating`                               |
+| Display      | `WlmBadge`, `WlmChip`, `WlmPill`, `WlmSpecRow`, `WlmDivider`, `WlmAvatar`, `WlmAvatarStack`, `WlmTag`, `WlmKbd`, `WlmStat`, `WlmCallout`, `WlmCodeBlock`, `WlmProgressBar`, `WlmProgressRing`, `WlmTooltip` |
+| Layout       | `WlmCard`, `WlmPageHeader`, `WlmSectionLabel`, `WlmAppBar`, `WlmAppScaffold`, `WlmAccordion`, `WlmBreadcrumbs`, `WlmDrawer`                                                                            |
+| Lists        | `WlmListTile`, `WlmActionRow`, `WlmSwitchTile`, `WlmCheckboxTile`, `WlmRadioTile`                                                                                                                      |
+| Feedback     | `WlmLoader`, `WlmScanBar`, `WlmSkeleton`, `WlmGridSkeleton`, `WlmSnack`, `WlmToast`, `WlmBanner`, `WlmEmptyState`, `WlmErrorState`                                                                     |
+| Navigation   | `WlmBottomNav`, `WlmStepDots`, `WlmTabBar`, `WlmShell`                                                                                                                                                 |
+| Overlays     | `showWlmBottomSheet`, `WlmDialog`                                                                                                                                                                      |
+| Media        | `WlmNetworkImage`, `WlmProgressiveImage`, `WlmMasonryGrid`                                                                                                                                             |
 
 `Switch`, `Checkbox`, `Radio`, `AppBar`, `SnackBar`, `BottomNavigationBar`, `Card` and `TextSelection` are restyled automatically by `WlmTheme` — use the stock Material widgets and they'll match.
 
@@ -94,11 +94,11 @@ flutter build web --release --base-href /WolwoLoom/
 
 ## Roadmap
 
-* `WlmRadioTile`, `WlmCheckboxTile`, `WlmSegmentedControl`
-* `WlmTabBar`, `WlmAppBar`, `WlmDrawer`, `WlmFab`
-* `WlmDateField`, `WlmDropdown`, `WlmAutocomplete`
-* `WlmToast` (lighter than snackbar), `WlmBanner`, `WlmEmptyState`, `WlmErrorState`
-* `WlmShell` (bottom-nav + go_router glue)
+* `WlmAutocomplete`, `WlmRangeSlider`, `WlmTimeField`
+* Form orchestration (`WlmForm`, validators, error summary)
+* `WlmDataTable`, sortable mono table for dense data
+* Charts (mono sparkline, bar, ring)
+* `go_router` glue for `WlmShell`
 * Built-in onboarding / settings page templates
 * Generated docs site (Dartdoc + the widgetbook web build)
 

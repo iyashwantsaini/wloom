@@ -75,6 +75,11 @@ class WidgetbookApp extends StatelessWidget {
               badge: ctx.knobs.boolean(label: 'Badge'),
               onPressed: () {},
             )),
+            _component('FAB', (ctx) => WlmFab(
+              icon: Icons.add_rounded,
+              label: ctx.knobs.boolean(label: 'Extended', initialValue: true) ? 'COMPOSE' : null,
+              onPressed: () {},
+            )),
           ],
         ),
         WidgetbookCategory(
@@ -102,6 +107,14 @@ class WidgetbookApp extends StatelessWidget {
                 onGetKey: () {},
               ),
             )),
+            _component('Checkbox', (ctx) => _CheckboxDemo(initial: ctx.knobs.boolean(label: 'Initial', initialValue: true))),
+            _component('Radio group', (_) => const _RadioDemo()),
+            _component('Segmented', (_) => const _SegmentedDemo()),
+            _component('Dropdown', (_) => const _DropdownDemo()),
+            _component('Slider', (_) => const _SliderDemo()),
+            _component('Stepper', (_) => const _StepperDemo()),
+            _component('Date field', (_) => const _DateFieldDemo()),
+            _component('Rating', (_) => const _RatingDemo()),
           ],
         ),
         WidgetbookCategory(
@@ -127,6 +140,82 @@ class WidgetbookApp extends StatelessWidget {
               ),
             )),
             _component('Divider', (_) => const SizedBox(width: 320, child: WlmDivider())),
+            _component('Avatar', (ctx) => WlmAvatar(
+              initials: ctx.knobs.string(label: 'Initials', initialValue: 'YS'),
+              size: ctx.knobs.double.slider(label: 'Size', initialValue: 40, min: 24, max: 96),
+              shape: ctx.knobs.boolean(label: 'Circle') ? WlmAvatarShape.circle : WlmAvatarShape.square,
+            )),
+            _component('Avatar stack', (_) => WlmAvatarStack(
+              avatars: const [
+                WlmAvatar(initials: 'YS'),
+                WlmAvatar(initials: 'AC'),
+                WlmAvatar(initials: 'JD'),
+                WlmAvatar(initials: 'MK'),
+                WlmAvatar(initials: 'RT'),
+                WlmAvatar(initials: 'BL'),
+              ],
+            )),
+            _component('Tag', (ctx) => WlmTag(
+              label: ctx.knobs.string(label: 'Label', initialValue: 'wallpaper'),
+              onRemove: ctx.knobs.boolean(label: 'Removable', initialValue: true) ? () {} : null,
+            )),
+            _component('Kbd', (ctx) => Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                WlmKbd(ctx.knobs.string(label: 'Key 1', initialValue: 'Ctrl')),
+                const SizedBox(width: 4),
+                const WlmKbd('+'),
+                const SizedBox(width: 4),
+                WlmKbd(ctx.knobs.string(label: 'Key 2', initialValue: 'K')),
+              ],
+            )),
+            _component('Stat', (ctx) => SizedBox(
+              width: 200,
+              child: WlmStat(
+                label: ctx.knobs.string(label: 'Label', initialValue: 'Downloads'),
+                value: ctx.knobs.string(label: 'Value', initialValue: '12,403'),
+                trend: '+12.4%',
+                trendPositive: true,
+              ),
+            )),
+            _component('Callout', (ctx) => SizedBox(
+              width: 360,
+              child: WlmCallout(
+                title: 'Heads up',
+                body: ctx.knobs.string(label: 'Body', initialValue: 'You can theme this in any of four tones.'),
+                tone: ctx.knobs.object.dropdown(
+                  label: 'Tone',
+                  options: WlmCalloutTone.values,
+                  initialOption: WlmCalloutTone.info,
+                ),
+              ),
+            )),
+            _component('Code block', (_) => const SizedBox(
+              width: 420,
+              child: WlmCodeBlock(
+                language: 'dart',
+                code: "final theme = WlmTheme.dark();\nrunApp(MaterialApp(theme: theme));",
+              ),
+            )),
+            _component('Progress bar', (ctx) => SizedBox(
+              width: 280,
+              child: WlmProgressBar(
+                label: 'UPLOADING',
+                value: ctx.knobs.double.slider(label: 'Value', initialValue: 0.6, min: 0, max: 1),
+              ),
+            )),
+            _component('Progress ring', (ctx) => WlmProgressRing(
+              value: ctx.knobs.boolean(label: 'Determinate', initialValue: true)
+                  ? ctx.knobs.double.slider(label: 'Value', initialValue: 0.6, min: 0, max: 1)
+                  : null,
+            )),
+            _component('Tooltip', (_) => const WlmTooltip(
+              message: 'Saved to favourites',
+              child: Padding(
+                padding: EdgeInsets.all(WlmTokens.spaceMd),
+                child: Icon(Icons.bookmark_rounded),
+              ),
+            )),
           ],
         ),
         WidgetbookCategory(
@@ -155,6 +244,48 @@ class WidgetbookApp extends StatelessWidget {
               width: 320,
               child: WlmSectionLabel(ctx.knobs.string(label: 'Text', initialValue: 'Recent')),
             )),
+            _component('App bar', (ctx) => SizedBox(
+              width: 360,
+              child: WlmAppBar(
+                title: ctx.knobs.string(label: 'Title', initialValue: 'Wolwoloom'),
+                actions: [
+                  WlmHeaderIconButton(icon: Icons.search_rounded, onPressed: () {}),
+                ],
+                showDivider: ctx.knobs.boolean(label: 'Divider', initialValue: true),
+              ),
+            )),
+            _component('Accordion', (ctx) => SizedBox(
+              width: 360,
+              child: WlmAccordion(
+                title: 'Pricing',
+                subtitle: 'How is this priced?',
+                child: Text(
+                  'Wolwoloom is MIT-licensed and free forever.',
+                  style: WlmType.bodySmall(Theme.of(ctx).colorScheme.onSurfaceVariant),
+                ),
+              ),
+            )),
+            _component('Breadcrumbs', (_) => WlmBreadcrumbs(
+              crumbs: [
+                WlmCrumb('Home', onTap: () {}),
+                WlmCrumb('Components', onTap: () {}),
+                const WlmCrumb('Card'),
+              ],
+            )),
+            _component('Drawer', (_) => SizedBox(
+              width: 280,
+              height: 480,
+              child: WlmDrawer(
+                title: 'Wolwoloom',
+                subtitle: 'Editorial design system',
+                children: const [
+                  WlmListTile(title: 'Home'),
+                  WlmListTile(title: 'Components'),
+                  WlmListTile(title: 'Tokens'),
+                  WlmListTile(title: 'About'),
+                ],
+              ),
+            )),
           ],
         ),
         WidgetbookCategory(
@@ -180,6 +311,8 @@ class WidgetbookApp extends StatelessWidget {
               ),
             )),
             _component('Switch tile', (ctx) => _SwitchTileDemo(initial: ctx.knobs.boolean(label: 'Initial value', initialValue: true))),
+            _component('Checkbox tile', (_) => const _CheckboxTileDemo()),
+            _component('Radio tile group', (_) => const _RadioTileGroupDemo()),
           ],
         ),
         WidgetbookCategory(
@@ -208,6 +341,42 @@ class WidgetbookApp extends StatelessWidget {
               label: 'Show',
               onPressed: () => WlmSnack.show(context, 'Saved', actionLabel: 'Undo'),
             ))),
+            _component('Toast', (_) => Builder(builder: (context) => WlmPrimaryButton(
+              label: 'Show toast',
+              onPressed: () => WlmToast.show(context, 'Copied to clipboard', tone: WlmCalloutTone.success),
+            ))),
+            _component('Banner', (ctx) => SizedBox(
+              width: 480,
+              child: WlmBanner(
+                title: 'Update available',
+                message: 'A new version of Wolwoloom is ready.',
+                actionLabel: 'Update',
+                tone: ctx.knobs.object.dropdown(
+                  label: 'Tone',
+                  options: WlmCalloutTone.values,
+                  initialOption: WlmCalloutTone.info,
+                ),
+                onAction: () {},
+                onDismiss: () {},
+              ),
+            )),
+            _component('Empty state', (_) => const SizedBox(
+              width: 360,
+              child: WlmEmptyState(
+                icon: Icons.bookmark_border_rounded,
+                title: 'Nothing saved yet',
+                body: 'Tap the bookmark icon on any wallpaper to save it for later.',
+              ),
+            )),
+            _component('Error state', (_) => SizedBox(
+              width: 360,
+              child: WlmErrorState(
+                title: "We couldn't load that.",
+                body: 'Check your connection and try again.',
+                details: 'SocketException: Failed host lookup',
+                onRetry: () {},
+              ),
+            )),
           ],
         ),
         WidgetbookCategory(
@@ -221,6 +390,22 @@ class WidgetbookApp extends StatelessWidget {
               child: WlmStepDots(
                 total: 4,
                 index: ctx.knobs.int.slider(label: 'Index', initialValue: 1, min: 0, max: 3),
+              ),
+            )),
+            _component('Tab bar', (_) => const _TabBarDemo()),
+            _component('Shell', (_) => SizedBox(
+              width: 360,
+              height: 540,
+              child: WlmShell(
+                appBarTitle: 'Wolwoloom',
+                items: const [
+                  WlmNavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home'),
+                  WlmNavItem(icon: Icons.search_rounded, label: 'Search'),
+                  WlmNavItem(icon: Icons.bookmark_outline, label: 'Saved'),
+                ],
+                builder: (ctx, i) => Center(
+                  child: Text('Tab $i', style: WlmType.h1(Theme.of(ctx).colorScheme.onSurface)),
+                ),
               ),
             )),
           ],
@@ -455,4 +640,236 @@ class _BottomNavDemo extends StatelessWidget {
       ),
     );
   }
+}
+
+// Phase 2 demos appended below
+
+class _CheckboxDemo extends StatefulWidget {
+  const _CheckboxDemo({required this.initial});
+  final bool initial;
+  @override
+  State<_CheckboxDemo> createState() => _CheckboxDemoState();
+}
+
+class _CheckboxDemoState extends State<_CheckboxDemo> {
+  late bool _v = widget.initial;
+  @override
+  Widget build(BuildContext context) =>
+      WlmCheckbox(value: _v, onChanged: (v) => setState(() => _v = v));
+}
+
+class _RadioDemo extends StatefulWidget {
+  const _RadioDemo();
+  @override
+  State<_RadioDemo> createState() => _RadioDemoState();
+}
+
+class _RadioDemoState extends State<_RadioDemo> {
+  String _v = 'a';
+  @override
+  Widget build(BuildContext context) {
+    Widget row(String label, String value) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: WlmTokens.spaceXs),
+          child: Row(
+            children: [
+              WlmRadio<String>(
+                value: value,
+                groupValue: _v,
+                onChanged: (v) => setState(() => _v = v ?? _v),
+              ),
+              const SizedBox(width: WlmTokens.spaceMd),
+              Text(label, style: WlmType.body(Theme.of(context).colorScheme.onSurface)),
+            ],
+          ),
+        );
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [row('Apple', 'a'), row('Banana', 'b'), row('Cherry', 'c')],
+    );
+  }
+}
+
+class _SegmentedDemo extends StatefulWidget {
+  const _SegmentedDemo();
+  @override
+  State<_SegmentedDemo> createState() => _SegmentedDemoState();
+}
+
+class _SegmentedDemoState extends State<_SegmentedDemo> {
+  int _v = 0;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 320,
+        child: WlmSegmentedControl<int>(
+          expand: true,
+          value: _v,
+          onChanged: (v) => setState(() => _v = v),
+          segments: const [
+            WlmSegment(value: 0, label: 'Daily', icon: Icons.today_rounded),
+            WlmSegment(value: 1, label: 'Weekly'),
+            WlmSegment(value: 2, label: 'Monthly'),
+          ],
+        ),
+      );
+}
+
+class _DropdownDemo extends StatefulWidget {
+  const _DropdownDemo();
+  @override
+  State<_DropdownDemo> createState() => _DropdownDemoState();
+}
+
+class _DropdownDemoState extends State<_DropdownDemo> {
+  String? _v = 'wallhaven';
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 240,
+        child: WlmDropdown<String>(
+          label: 'Source',
+          value: _v,
+          onChanged: (v) => setState(() => _v = v),
+          items: const [
+            WlmDropdownItem(value: 'wallhaven', label: 'Wallhaven'),
+            WlmDropdownItem(value: 'reddit', label: 'Reddit'),
+            WlmDropdownItem(value: 'nasa', label: 'NASA'),
+          ],
+        ),
+      );
+}
+
+class _SliderDemo extends StatefulWidget {
+  const _SliderDemo();
+  @override
+  State<_SliderDemo> createState() => _SliderDemoState();
+}
+
+class _SliderDemoState extends State<_SliderDemo> {
+  double _v = 0.4;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 320,
+        child: WlmSlider(value: _v, onChanged: (v) => setState(() => _v = v)),
+      );
+}
+
+class _StepperDemo extends StatefulWidget {
+  const _StepperDemo();
+  @override
+  State<_StepperDemo> createState() => _StepperDemoState();
+}
+
+class _StepperDemoState extends State<_StepperDemo> {
+  int _v = 1;
+  @override
+  Widget build(BuildContext context) => WlmStepper(
+        label: 'Quantity',
+        value: _v,
+        onChanged: (v) => setState(() => _v = v),
+      );
+}
+
+class _DateFieldDemo extends StatefulWidget {
+  const _DateFieldDemo();
+  @override
+  State<_DateFieldDemo> createState() => _DateFieldDemoState();
+}
+
+class _DateFieldDemoState extends State<_DateFieldDemo> {
+  DateTime? _v;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 280,
+        child: WlmDateField(
+          label: 'Birthday',
+          value: _v,
+          onChanged: (v) => setState(() => _v = v),
+        ),
+      );
+}
+
+class _RatingDemo extends StatefulWidget {
+  const _RatingDemo();
+  @override
+  State<_RatingDemo> createState() => _RatingDemoState();
+}
+
+class _RatingDemoState extends State<_RatingDemo> {
+  int _v = 3;
+  @override
+  Widget build(BuildContext context) =>
+      WlmRating(value: _v, onChanged: (v) => setState(() => _v = v));
+}
+
+class _CheckboxTileDemo extends StatefulWidget {
+  const _CheckboxTileDemo();
+  @override
+  State<_CheckboxTileDemo> createState() => _CheckboxTileDemoState();
+}
+
+class _CheckboxTileDemoState extends State<_CheckboxTileDemo> {
+  bool _v = true;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 360,
+        child: WlmCheckboxTile(
+          title: 'Send weekly digest',
+          subtitle: 'Curated wallpapers, every Sunday morning.',
+          value: _v,
+          onChanged: (v) => setState(() => _v = v),
+        ),
+      );
+}
+
+class _RadioTileGroupDemo extends StatefulWidget {
+  const _RadioTileGroupDemo();
+  @override
+  State<_RadioTileGroupDemo> createState() => _RadioTileGroupDemoState();
+}
+
+class _RadioTileGroupDemoState extends State<_RadioTileGroupDemo> {
+  String _v = 'system';
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 360,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final entry in const [
+              ('system', 'System', 'Match the device theme'),
+              ('light', 'Light', 'Always use the light scheme'),
+              ('dark', 'Dark', 'Always use the dark scheme'),
+            ])
+              WlmRadioTile<String>(
+                value: entry.$1,
+                groupValue: _v,
+                title: entry.$2,
+                subtitle: entry.$3,
+                onChanged: (v) => setState(() => _v = v ?? _v),
+              ),
+          ],
+        ),
+      );
+}
+
+class _TabBarDemo extends StatefulWidget {
+  const _TabBarDemo();
+  @override
+  State<_TabBarDemo> createState() => _TabBarDemoState();
+}
+
+class _TabBarDemoState extends State<_TabBarDemo> {
+  int _i = 0;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 360,
+        child: WlmTabBar(
+          currentIndex: _i,
+          onTap: (i) => setState(() => _i = i),
+          tabs: const [
+            WlmTab(label: 'Curated'),
+            WlmTab(label: 'Latest'),
+            WlmTab(label: 'Favourites'),
+          ],
+        ),
+      );
 }

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../tokens/wlm_colors.dart';
 import '../tokens/wlm_tokens.dart';
+import 'wlm_theme_extension.dart';
 
 /// Wolwoloom theme builders.
 ///
@@ -45,6 +46,7 @@ class WlmTheme {
       hairline: WlmColors.hairlineLight,
       accent: WlmColors.accentLight,
       statusBarBrightness: Brightness.dark,
+      extension: WlmThemeExtension.light,
     );
   }
 
@@ -75,6 +77,7 @@ class WlmTheme {
       hairline: WlmColors.hairlineDark,
       accent: WlmColors.accentDark,
       statusBarBrightness: Brightness.light,
+      extension: WlmThemeExtension.dark,
     );
   }
 
@@ -88,8 +91,10 @@ class WlmTheme {
     required Color hairline,
     required Color accent,
     required Brightness statusBarBrightness,
+    required WlmThemeExtension extension,
   }) {
     return base.copyWith(
+      extensions: <ThemeExtension<dynamic>>[extension],
       colorScheme: scheme,
       scaffoldBackgroundColor: surface,
       canvasColor: surface,
