@@ -3,7 +3,7 @@ description: >
   Wolwoloom — an editorial / typewriter-flavored Flutter design system.
   Mono typography, hairline borders, ink-on-paper palette with a periwinkle
   accent. Extracted from the wolwo wallpaper app, packaged for reuse.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/iyashwantsaini/WolwoLoom
 repository: https://github.com/iyashwantsaini/WolwoLoom
 issue_tracker: https://github.com/iyashwantsaini/WolwoLoom/issues

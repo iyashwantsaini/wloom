@@ -31,3 +31,7 @@ doc/api/
 # Reference clone (regenerable via git clone https://github.com/iyashwantsaini/wolwo.git reference/wolwo)
 reference/wolwo/
 
+
+# Local-only release signing material — never commit
+.secrets/
+
