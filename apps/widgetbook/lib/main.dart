@@ -80,6 +80,24 @@ class WidgetbookApp extends StatelessWidget {
               label: ctx.knobs.boolean(label: 'Extended', initialValue: true) ? 'COMPOSE' : null,
               onPressed: () {},
             )),
+            _component('Unified', (ctx) => WlmButton(
+              label: ctx.knobs.string(label: 'Label', initialValue: 'Save'),
+              variant: ctx.knobs.object.dropdown(
+                label: 'Variant',
+                options: WlmButtonVariant.values,
+                labelBuilder: (v) => v.name,
+              ),
+              size: ctx.knobs.object.dropdown(
+                label: 'Size',
+                options: WlmSize.values,
+                labelBuilder: (s) => s.name,
+                initialOption: WlmSize.md,
+              ),
+              icon: ctx.knobs.boolean(label: 'Icon') ? Icons.check_rounded : null,
+              loading: ctx.knobs.boolean(label: 'Loading'),
+              expand: ctx.knobs.boolean(label: 'Expand'),
+              onPressed: ctx.knobs.boolean(label: 'Enabled', initialValue: true) ? () {} : null,
+            )),
           ],
         ),
         WidgetbookCategory(
@@ -115,6 +133,20 @@ class WidgetbookApp extends StatelessWidget {
             _component('Stepper', (_) => const _StepperDemo()),
             _component('Date field', (_) => const _DateFieldDemo()),
             _component('Rating', (_) => const _RatingDemo()),
+            _component('Combobox', (_) => const _ComboboxDemo()),
+            _component('Toggle', (ctx) => _ToggleDemo(
+              initial: ctx.knobs.boolean(label: 'Initial', initialValue: true),
+            )),
+            _component('Toggle group', (_) => const _ToggleGroupDemo()),
+            _component('Pin input', (ctx) => SizedBox(
+              width: 320,
+              child: WlmPinInput(
+                length: ctx.knobs.int.slider(label: 'Length', initialValue: 6, min: 4, max: 8),
+                obscure: ctx.knobs.boolean(label: 'Obscure'),
+                onChanged: (_) {},
+              ),
+            )),
+            _component('Form + validators', (_) => const _FormDemo()),
           ],
         ),
         WidgetbookCategory(
@@ -214,6 +246,22 @@ class WidgetbookApp extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(WlmTokens.spaceMd),
                 child: Icon(Icons.bookmark_rounded),
+              ),
+            )),
+            _component('Data table', (_) => SizedBox(
+              width: 480,
+              child: WlmDataTable(
+                onRowTap: (_) {},
+                columns: const [
+                  WlmDataColumn(label: 'Source', flex: 2),
+                  WlmDataColumn(label: 'Items'),
+                  WlmDataColumn(label: 'Status'),
+                ],
+                rows: const [
+                  WlmDataRow(cells: [Text('Wallhaven'), Text('1,204'), WlmBadge(label: 'OK')]),
+                  WlmDataRow(cells: [Text('Reddit'), Text('842'), WlmBadge(label: 'OK')]),
+                  WlmDataRow(cells: [Text('NASA'), Text('57'), WlmBadge(label: 'SLOW')]),
+                ],
               ),
             )),
           ],
@@ -345,6 +393,7 @@ class WidgetbookApp extends StatelessWidget {
               label: 'Show toast',
               onPressed: () => WlmToast.show(context, 'Copied to clipboard', tone: WlmCalloutTone.success),
             ))),
+            _component('Toaster (stack)', (_) => const _ToasterDemo()),
             _component('Banner', (ctx) => SizedBox(
               width: 480,
               child: WlmBanner(
@@ -393,6 +442,12 @@ class WidgetbookApp extends StatelessWidget {
               ),
             )),
             _component('Tab bar', (_) => const _TabBarDemo()),
+            _component('Pagination', (ctx) => SizedBox(
+              width: 360,
+              child: _PaginationDemo(
+                pageCount: ctx.knobs.int.slider(label: 'Pages', initialValue: 12, min: 1, max: 30),
+              ),
+            )),
             _component('Shell', (_) => SizedBox(
               width: 360,
               height: 540,
@@ -437,6 +492,28 @@ class WidgetbookApp extends StatelessWidget {
                 destructive: true,
               ),
             ))),
+            _component('Popover menu', (_) => WlmMenuButton(
+              title: 'Sort by',
+              items: const [
+                WlmMenuItem(label: 'Newest', icon: Icons.schedule_rounded),
+                WlmMenuItem(label: 'Top rated', icon: Icons.star_outline_rounded),
+                WlmMenuItem(label: 'Delete', icon: Icons.delete_outline, destructive: true),
+              ],
+              child: WlmGhostButton(label: 'Sort', icon: Icons.sort_rounded, onPressed: () {}),
+            )),
+            _component('Command palette', (_) => Builder(
+              builder: (context) => WlmPrimaryButton(
+                label: 'Open palette (⌘K)',
+                onPressed: () => WlmCommandPalette.show(
+                  context,
+                  commands: [
+                    WlmCommand(id: '1', label: 'New wallpaper', group: 'Create', icon: Icons.add, onRun: () {}),
+                    WlmCommand(id: '2', label: 'Toggle theme', group: 'Settings', icon: Icons.contrast_rounded, onRun: () {}),
+                    WlmCommand(id: '3', label: 'Sign out', group: 'Account', icon: Icons.logout_rounded, onRun: () {}),
+                  ],
+                ),
+              ),
+            )),
           ],
         ),
         WidgetbookCategory(
@@ -869,6 +946,171 @@ class _TabBarDemoState extends State<_TabBarDemo> {
             WlmTab(label: 'Curated'),
             WlmTab(label: 'Latest'),
             WlmTab(label: 'Favourites'),
+          ],
+        ),
+      );
+}
+
+
+class _ComboboxDemo extends StatefulWidget {
+  const _ComboboxDemo();
+  @override
+  State<_ComboboxDemo> createState() => _ComboboxDemoState();
+}
+
+class _ComboboxDemoState extends State<_ComboboxDemo> {
+  String? _v;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 320,
+        child: WlmCombobox<String>(
+          label: 'City',
+          hintText: 'Start typing…',
+          value: _v,
+          onChanged: (v) => setState(() => _v = v),
+          options: const [
+            WlmComboboxOption(value: 'tok', label: 'Tokyo', subtitle: 'JP'),
+            WlmComboboxOption(value: 'ber', label: 'Berlin', subtitle: 'DE'),
+            WlmComboboxOption(value: 'nyc', label: 'New York', subtitle: 'US'),
+            WlmComboboxOption(value: 'mum', label: 'Mumbai', subtitle: 'IN'),
+            WlmComboboxOption(value: 'lon', label: 'London', subtitle: 'UK'),
+          ],
+        ),
+      );
+}
+
+class _ToggleDemo extends StatefulWidget {
+  const _ToggleDemo({required this.initial});
+  final bool initial;
+  @override
+  State<_ToggleDemo> createState() => _ToggleDemoState();
+}
+
+class _ToggleDemoState extends State<_ToggleDemo> {
+  late bool _v = widget.initial;
+  @override
+  Widget build(BuildContext context) => WlmToggle(
+        selected: _v,
+        onChanged: (v) => setState(() => _v = v),
+        icon: Icons.format_bold_rounded,
+        label: 'Bold',
+      );
+}
+
+class _ToggleGroupDemo extends StatefulWidget {
+  const _ToggleGroupDemo();
+  @override
+  State<_ToggleGroupDemo> createState() => _ToggleGroupDemoState();
+}
+
+class _ToggleGroupDemoState extends State<_ToggleGroupDemo> {
+  Set<String> _v = {'b'};
+  @override
+  Widget build(BuildContext context) => WlmToggleGroup<String>(
+        allowMultiple: true,
+        selected: _v,
+        onChanged: (s) => setState(() => _v = s),
+        items: const [
+          WlmToggleItem(value: 'b', label: 'BOLD', icon: Icons.format_bold_rounded),
+          WlmToggleItem(value: 'i', label: 'ITALIC', icon: Icons.format_italic_rounded),
+          WlmToggleItem(value: 'u', label: 'UNDER', icon: Icons.format_underline_rounded),
+        ],
+      );
+}
+
+class _PaginationDemo extends StatefulWidget {
+  const _PaginationDemo({required this.pageCount});
+  final int pageCount;
+  @override
+  State<_PaginationDemo> createState() => _PaginationDemoState();
+}
+
+class _PaginationDemoState extends State<_PaginationDemo> {
+  int _p = 1;
+  @override
+  Widget build(BuildContext context) => WlmPagination(
+        page: _p,
+        pageCount: widget.pageCount,
+        hasPrevious: _p > 1,
+        hasNext: _p < widget.pageCount,
+        onPageChanged: (p) => setState(() => _p = p),
+      );
+}
+
+class _ToasterDemo extends StatelessWidget {
+  const _ToasterDemo();
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 360,
+      height: 320,
+      child: WlmToaster(
+        child: Builder(
+          builder: (ctx) => Center(
+            child: Wrap(
+              spacing: WlmTokens.spaceSm,
+              runSpacing: WlmTokens.spaceSm,
+              children: [
+                WlmGhostButton(label: 'INFO', onPressed: () => WlmToaster.info(ctx, 'Indexed.')),
+                WlmGhostButton(label: 'OK', onPressed: () => WlmToaster.success(ctx, 'Saved.')),
+                WlmGhostButton(label: 'WARN', onPressed: () => WlmToaster.warning(ctx, 'Offline.')),
+                WlmGhostButton(label: 'ERR', onPressed: () => WlmToaster.danger(ctx, 'Failed.')),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FormDemo extends StatefulWidget {
+  const _FormDemo();
+  @override
+  State<_FormDemo> createState() => _FormDemoState();
+}
+
+class _FormDemoState extends State<_FormDemo> {
+  final _form = WlmFormController();
+  String? _result;
+  @override
+  void dispose() { _form.dispose(); super.dispose(); }
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 360,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            WlmFormField<String>(
+              controller: _form,
+              name: 'email',
+              initialValue: '',
+              validator: WlmValidators.compose([
+                WlmValidators.required(),
+                WlmValidators.email(),
+              ]),
+              builder: (ctx, value, error, set) => WlmTextField(
+                label: 'Email',
+                prefixIcon: Icons.alternate_email,
+                errorText: error,
+                onChanged: set,
+              ),
+            ),
+            const SizedBox(height: WlmTokens.spaceMd),
+            Row(
+              children: [
+                WlmPrimaryButton(
+                  label: 'SUBMIT',
+                  onPressed: () => setState(() {
+                    _result = _form.validate() ? _form.values.toString() : null;
+                  }),
+                ),
+                const SizedBox(width: WlmTokens.spaceMd),
+                if (_result != null) Expanded(
+                  child: Text(_result!, style: WlmType.meta(Theme.of(context).colorScheme.outline)),
+                ),
+              ],
+            ),
           ],
         ),
       );

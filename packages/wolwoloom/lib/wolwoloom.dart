@@ -18,13 +18,17 @@ export 'src/tokens/wlm_tokens.dart';
 export 'src/tokens/wlm_colors.dart';
 export 'src/tokens/wlm_type.dart';
 export 'src/tokens/wlm_motion.dart';
+export 'src/tokens/wlm_size.dart';
+export 'src/tokens/wlm_density.dart';
 export 'src/theme/wlm_theme.dart';
 export 'src/theme/wlm_theme_extension.dart';
 
 // Utilities
 export 'src/utils/wlm_breakpoints.dart';
+export 'src/utils/wlm_a11y.dart';
 
 // Components — buttons
+export 'src/components/buttons/wlm_button.dart';
 export 'src/components/buttons/wlm_primary_button.dart';
 export 'src/components/buttons/wlm_secondary_button.dart';
 export 'src/components/buttons/wlm_ghost_button.dart';
@@ -40,10 +44,14 @@ export 'src/components/inputs/wlm_checkbox.dart';
 export 'src/components/inputs/wlm_radio.dart';
 export 'src/components/inputs/wlm_segmented_control.dart';
 export 'src/components/inputs/wlm_dropdown.dart';
+export 'src/components/inputs/wlm_combobox.dart';
 export 'src/components/inputs/wlm_slider.dart';
 export 'src/components/inputs/wlm_stepper.dart';
 export 'src/components/inputs/wlm_date_field.dart';
 export 'src/components/inputs/wlm_rating.dart';
+export 'src/components/inputs/wlm_toggle.dart';
+export 'src/components/inputs/wlm_pin_input.dart';
+export 'src/components/inputs/wlm_form.dart';
 
 // Components — display
 export 'src/components/display/wlm_badge.dart';
@@ -61,6 +69,7 @@ export 'src/components/display/wlm_code_block.dart';
 export 'src/components/display/wlm_progress_bar.dart';
 export 'src/components/display/wlm_progress_ring.dart';
 export 'src/components/display/wlm_tooltip.dart';
+export 'src/components/display/wlm_data_table.dart';
 
 // Components — layout
 export 'src/components/layout/wlm_card.dart';
@@ -86,6 +95,7 @@ export 'src/components/feedback/wlm_skeleton.dart';
 export 'src/components/feedback/wlm_grid_skeleton.dart';
 export 'src/components/feedback/wlm_snack_bar.dart';
 export 'src/components/feedback/wlm_banner.dart';
+export 'src/components/feedback/wlm_toaster.dart';
 export 'src/components/feedback/wlm_toast.dart';
 export 'src/components/feedback/wlm_empty_state.dart';
 export 'src/components/feedback/wlm_error_state.dart';
@@ -95,10 +105,14 @@ export 'src/components/navigation/wlm_bottom_nav.dart';
 export 'src/components/navigation/wlm_step_dots.dart';
 export 'src/components/navigation/wlm_tab_bar.dart';
 export 'src/components/navigation/wlm_shell.dart';
+export 'src/components/navigation/wlm_pagination.dart';
 
 // Components — overlays
 export 'src/components/overlays/wlm_bottom_sheet.dart';
 export 'src/components/overlays/wlm_dialog.dart';
+export 'src/components/overlays/wlm_popover.dart';
+export 'src/components/overlays/wlm_menu.dart';
+export 'src/components/overlays/wlm_command_palette.dart';
 
 // Components — media
 export 'src/components/media/wlm_network_image.dart';

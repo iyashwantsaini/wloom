@@ -112,6 +112,50 @@ class ButtonsPage extends StatelessWidget {
             ),
           ],
         ),
+        Section(
+          label: 'Sizes',
+          caption: 'WlmSize.sm · md · lg · share footprint with other inputs.',
+          children: [
+            Wrap(
+              spacing: WlmTokens.spaceSm,
+              runSpacing: WlmTokens.spaceSm,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                WlmPrimaryButton(label: 'SM', size: WlmSize.sm, onPressed: () {}),
+                WlmPrimaryButton(label: 'MD', size: WlmSize.md, onPressed: () {}),
+                WlmPrimaryButton(label: 'LG', size: WlmSize.lg, onPressed: () {}),
+              ],
+            ),
+          ],
+        ),
+        Section(
+          label: 'Loading & destructive',
+          caption: 'Unified WlmButton powers all variants — incl. animated loading.',
+          children: [
+            Wrap(
+              spacing: WlmTokens.spaceSm,
+              runSpacing: WlmTokens.spaceSm,
+              children: [
+                WlmPrimaryButton(
+                  label: 'Saving',
+                  loading: true,
+                  onPressed: () {},
+                ),
+                WlmButton(
+                  label: 'Delete',
+                  variant: WlmButtonVariant.destructive,
+                  icon: Icons.delete_outline,
+                  onPressed: () {},
+                ),
+                const WlmButton(
+                  label: 'Disabled',
+                  variant: WlmButtonVariant.destructive,
+                  onPressed: null,
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }

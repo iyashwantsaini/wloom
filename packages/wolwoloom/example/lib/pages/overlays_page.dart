@@ -87,6 +87,73 @@ class OverlaysPage extends StatelessWidget {
             ),
           ],
         ),
+        Section(
+          label: 'Popover & menu',
+          caption: 'Anchor a sheet of options to any widget.',
+          children: [
+            Wrap(
+              spacing: WlmTokens.spaceSm,
+              runSpacing: WlmTokens.spaceSm,
+              children: [
+                WlmMenuButton(
+                  title: 'Sort by',
+                  items: const [
+                    WlmMenuItem(label: 'Newest', icon: Icons.schedule_rounded),
+                    WlmMenuItem(label: 'Top rated', icon: Icons.star_outline_rounded),
+                    WlmMenuItem(label: 'Trending', icon: Icons.trending_up_rounded),
+                    WlmMenuItem(label: 'Delete', icon: Icons.delete_outline, destructive: true),
+                  ],
+                  child: WlmGhostButton(label: 'Sort', icon: Icons.sort_rounded, onPressed: () {}),
+                ),
+              ],
+            ),
+          ],
+        ),
+        Section(
+          label: 'Command palette',
+          caption: 'Cmd-K style global launcher with keyboard nav.',
+          children: [
+            Builder(
+              builder: (ctx) => WlmSecondaryButton(
+                label: 'Open palette',
+                icon: Icons.bolt_rounded,
+                onPressed: () => WlmCommandPalette.show(
+                  ctx,
+                  commands: [
+                    WlmCommand(
+                      id: 'new',
+                      label: 'New wallpaper',
+                      group: 'Create',
+                      icon: Icons.add_photo_alternate_outlined,
+                      onRun: () {},
+                    ),
+                    WlmCommand(
+                      id: 'fav',
+                      label: 'Open favourites',
+                      group: 'Navigate',
+                      icon: Icons.favorite_border,
+                      onRun: () {},
+                    ),
+                    WlmCommand(
+                      id: 'theme',
+                      label: 'Toggle theme',
+                      group: 'Settings',
+                      icon: Icons.contrast_rounded,
+                      onRun: () {},
+                    ),
+                    WlmCommand(
+                      id: 'logout',
+                      label: 'Sign out',
+                      group: 'Account',
+                      icon: Icons.logout_rounded,
+                      onRun: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

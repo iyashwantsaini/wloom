@@ -12,6 +12,8 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   int _bottom = 0;
   int _tab = 0;
+  int _page = 1;
+  static const _pageCount = 12;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,19 @@ class _NavigationPageState extends State<NavigationPage> {
                   builder: (_) => const _ShellDemo(),
                 ),
               ),
+            ),
+          ],
+        ),
+        Section(
+          label: 'Pagination',
+          caption: 'Numbered when ≤ 7 pages, compact otherwise.',
+          children: [
+            WlmPagination(
+              page: _page,
+              pageCount: _pageCount,
+              hasPrevious: _page > 1,
+              hasNext: _page < _pageCount,
+              onPageChanged: (p) => setState(() => _page = p),
             ),
           ],
         ),

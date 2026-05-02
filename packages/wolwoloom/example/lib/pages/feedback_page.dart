@@ -52,6 +52,46 @@ class FeedbackPage extends StatelessWidget {
             ),
           ],
         ),
+        Section(
+          label: 'Toaster (stack)',
+          caption: 'Sonner-style queue. Mounted once at the app root.',
+          children: [
+            Wrap(
+              spacing: WlmTokens.spaceSm,
+              runSpacing: WlmTokens.spaceSm,
+              children: [
+                Builder(
+                  builder: (ctx) => WlmGhostButton(
+                    label: 'INFO',
+                    onPressed: () => WlmToaster.info(ctx, 'New wallpapers indexed.'),
+                  ),
+                ),
+                Builder(
+                  builder: (ctx) => WlmGhostButton(
+                    label: 'SUCCESS',
+                    onPressed: () => WlmToaster.success(ctx, 'Saved to favourites.'),
+                  ),
+                ),
+                Builder(
+                  builder: (ctx) => WlmGhostButton(
+                    label: 'WARNING',
+                    onPressed: () => WlmToaster.warning(ctx, 'You are offline.'),
+                  ),
+                ),
+                Builder(
+                  builder: (ctx) => WlmGhostButton(
+                    label: 'DANGER',
+                    onPressed: () => WlmToaster.danger(
+                      ctx,
+                      'Failed to fetch wallpapers.',
+                      title: 'Network error',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
         const Section(
           label: 'Banners',
           children: [

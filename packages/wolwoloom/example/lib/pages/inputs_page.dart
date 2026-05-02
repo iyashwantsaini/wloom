@@ -18,6 +18,10 @@ class _InputsPageState extends State<InputsPage> {
   int _count = 1;
   DateTime? _date;
   int _stars = 4;
+  String? _city;
+  bool _bold = false;
+  Set<String> _format = {'b'};
+  String _pin = '';
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +144,72 @@ class _InputsPageState extends State<InputsPage> {
                   style: WlmType.meta(Theme.of(context).colorScheme.outline),
                 ),
               ],
+            ),
+          ],
+        ),
+        Section(
+          label: 'Combobox',
+          caption: 'Searchable type-ahead with hairline popover.',
+          children: [
+            WlmCombobox<String>(
+              label: 'City',
+              hintText: 'Start typing…',
+              value: _city,
+              onChanged: (v) => setState(() => _city = v),
+              options: const [
+                WlmComboboxOption(value: 'tok', label: 'Tokyo', subtitle: 'JP'),
+                WlmComboboxOption(value: 'ber', label: 'Berlin', subtitle: 'DE'),
+                WlmComboboxOption(value: 'nyc', label: 'New York', subtitle: 'US'),
+                WlmComboboxOption(value: 'mum', label: 'Mumbai', subtitle: 'IN'),
+                WlmComboboxOption(value: 'lon', label: 'London', subtitle: 'UK'),
+              ],
+            ),
+          ],
+        ),
+        Section(
+          label: 'Toggle',
+          caption: 'Press-to-pin toggle and grouped multi-select.',
+          children: [
+            Row(
+              children: [
+                WlmToggle(
+                  selected: _bold,
+                  onChanged: (v) => setState(() => _bold = v),
+                  icon: Icons.format_bold_rounded,
+                  label: 'Bold',
+                ),
+                const SizedBox(width: WlmTokens.spaceMd),
+                WlmToggle(
+                  selected: !_bold,
+                  onChanged: (v) => setState(() => _bold = !v),
+                  icon: Icons.format_italic_rounded,
+                ),
+              ],
+            ),
+            WlmToggleGroup<String>(
+              allowMultiple: true,
+              selected: _format,
+              onChanged: (s) => setState(() => _format = s),
+              items: const [
+                WlmToggleItem(value: 'b', label: 'BOLD', icon: Icons.format_bold_rounded),
+                WlmToggleItem(value: 'i', label: 'ITALIC', icon: Icons.format_italic_rounded),
+                WlmToggleItem(value: 'u', label: 'UNDER', icon: Icons.format_underline_rounded),
+              ],
+            ),
+          ],
+        ),
+        Section(
+          label: 'Pin input',
+          caption: 'One-time-code input with monospaced cells.',
+          children: [
+            WlmPinInput(
+              length: 6,
+              onChanged: (v) => setState(() => _pin = v),
+              onCompleted: (_) {},
+            ),
+            Text(
+              _pin.isEmpty ? 'Enter code' : 'Code: $_pin',
+              style: WlmType.meta(Theme.of(context).colorScheme.outline),
             ),
           ],
         ),

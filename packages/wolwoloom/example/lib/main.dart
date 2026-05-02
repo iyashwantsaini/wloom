@@ -4,6 +4,7 @@ import 'package:wolwoloom/wolwoloom.dart';
 import 'pages/buttons_page.dart';
 import 'pages/display_page.dart';
 import 'pages/feedback_page.dart';
+import 'pages/forms_page.dart';
 import 'pages/foundations_page.dart';
 import 'pages/inputs_page.dart';
 import 'pages/layout_page.dart';
@@ -55,6 +56,7 @@ class _ExampleAppState extends State<ExampleApp> {
       theme: WlmTheme.light(),
       darkTheme: WlmTheme.dark(),
       themeMode: _mode,
+      builder: (ctx, child) => WlmToaster(child: child ?? const SizedBox()),
       home: _CatalogHome(mode: _mode, onToggleTheme: _toggle),
       debugShowCheckedModeBanner: false,
     );
@@ -92,6 +94,12 @@ const _entries = <_CatalogEntry>[
     subtitle: 'Text · search · checkbox · slider · stepper',
     icon: Icons.edit_outlined,
     page: InputsPage(),
+  ),
+  _CatalogEntry(
+    title: 'Forms',
+    subtitle: 'Controller · fields · validators',
+    icon: Icons.fact_check_outlined,
+    page: FormsPage(),
   ),
   _CatalogEntry(
     title: 'Display',
@@ -175,7 +183,7 @@ class _CatalogHome extends StatelessWidget {
             const WlmPageHeader(
               eyebrow: 'design system',
               title: 'Editorial Flutter\nfor mono lovers',
-              subtitle: '60+ components · ink-on-paper · MIT',
+              subtitle: '70+ components · ink-on-paper · MIT',
             ),
             const SizedBox(height: WlmTokens.spaceLg),
             Row(
@@ -183,8 +191,8 @@ class _CatalogHome extends StatelessWidget {
                 Expanded(
                   child: WlmStat(
                     label: 'Components',
-                    value: '60+',
-                    trend: '+30 in v0.2',
+                    value: '70+',
+                    trend: '+10 in v0.3',
                     trendPositive: true,
                   ),
                 ),
@@ -208,7 +216,7 @@ class _CatalogHome extends StatelessWidget {
             const SizedBox(height: WlmTokens.spaceLg),
             Center(
               child: Text(
-                'wolwoloom · v0.2.0',
+                'wolwoloom · v0.3.0',
                 style: WlmType.tiny(scheme.outline),
               ),
             ),

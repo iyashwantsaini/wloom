@@ -174,6 +174,37 @@ class DisplayPage extends StatelessWidget {
             const WlmDivider(),
           ],
         ),
+        Section(
+          label: 'Data table',
+          caption: 'Editorial all-caps headers · hairline rows · tap callbacks.',
+          children: [
+            WlmDataTable(
+              onRowTap: (_) {},
+              columns: const [
+                WlmDataColumn(label: 'Source', flex: 2),
+                WlmDataColumn(label: 'Items'),
+                WlmDataColumn(label: 'Status'),
+              ],
+              rows: const [
+                WlmDataRow(cells: [
+                  Text('Wallhaven'),
+                  Text('1,204'),
+                  WlmBadge(label: 'OK'),
+                ]),
+                WlmDataRow(cells: [
+                  Text('Reddit'),
+                  Text('842'),
+                  WlmBadge(label: 'OK'),
+                ]),
+                WlmDataRow(cells: [
+                  Text('NASA'),
+                  Text('57'),
+                  WlmBadge(label: 'SLOW'),
+                ]),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }

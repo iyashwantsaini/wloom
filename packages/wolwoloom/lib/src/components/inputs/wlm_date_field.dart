@@ -72,10 +72,7 @@ class _WlmDateFieldState extends State<WlmDateField> {
           label: widget.label,
           hintText: widget.hintText,
           prefixIcon: Icons.calendar_today_outlined,
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.expand_more_rounded, size: 18),
-            onPressed: _pick,
-          ),
+          suffixIcon: Icons.expand_more_rounded,
         ),
       ),
     );
