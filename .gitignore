@@ -35,3 +35,8 @@ reference/wolwo/
 # Local-only release signing material — never commit
 .secrets/
 
+
+# Python
+__pycache__/
+*.pyc
+

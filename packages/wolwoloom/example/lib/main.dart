@@ -12,6 +12,12 @@ import 'pages/lists_page.dart';
 import 'pages/media_page.dart';
 import 'pages/navigation_page.dart';
 import 'pages/overlays_page.dart';
+import 'screens/chat_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/onboarding_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/settings_screen.dart';
 
 void main() => runApp(const ExampleApp());
 
@@ -57,9 +63,45 @@ class _ExampleAppState extends State<ExampleApp> {
       darkTheme: WlmTheme.dark(),
       themeMode: _mode,
       builder: (ctx, child) => WlmToaster(child: child ?? const SizedBox()),
-      home: _CatalogHome(mode: _mode, onToggleTheme: _toggle),
+      home: _initialScreen() ??
+          _CatalogHome(mode: _mode, onToggleTheme: _toggle),
       debugShowCheckedModeBanner: false,
     );
+  }
+
+  /// `?screen=...` deep-link to a demo screen or `?page=...` to a category.
+  Widget? _initialScreen() {
+    try {
+      final params = Uri.base.queryParameters;
+      final s = params['screen'];
+      final screen = switch (s) {
+        'login' => const LoginScreen(),
+        'onboarding' => const OnboardingScreen(),
+        'dashboard' => const DashboardScreen(),
+        'profile' => const ProfileScreen(),
+        'settings' => const SettingsScreen(),
+        'chat' => const ChatScreen(),
+        _ => null,
+      };
+      if (screen != null) return screen;
+      final p = params['page'];
+      return switch (p) {
+        'foundations' => const FoundationsPage(),
+        'buttons' => const ButtonsPage(),
+        'inputs' => const InputsPage(),
+        'forms' => const FormsPage(),
+        'display' => const DisplayPage(),
+        'layout' => const LayoutPage(),
+        'lists' => const ListsPage(),
+        'feedback' => const FeedbackPage(),
+        'navigation' => const NavigationPage(),
+        'overlays' => const OverlaysPage(),
+        'media' => const MediaPage(),
+        _ => null,
+      };
+    } catch (_) {
+      return null;
+    }
   }
 }
 
@@ -145,6 +187,45 @@ const _entries = <_CatalogEntry>[
   ),
 ];
 
+const _templates = <_CatalogEntry>[
+  _CatalogEntry(
+    title: 'Login',
+    subtitle: 'Auth form · social sign-in · checkbox',
+    icon: Icons.login_rounded,
+    page: LoginScreen(),
+  ),
+  _CatalogEntry(
+    title: 'Onboarding',
+    subtitle: '3-step carousel · step dots',
+    icon: Icons.auto_stories_outlined,
+    page: OnboardingScreen(),
+  ),
+  _CatalogEntry(
+    title: 'Dashboard',
+    subtitle: 'KPI cards · sparklines · timeline',
+    icon: Icons.insights_outlined,
+    page: DashboardScreen(),
+  ),
+  _CatalogEntry(
+    title: 'Profile',
+    subtitle: 'Avatar · stats · segmented tabs',
+    icon: Icons.account_circle_outlined,
+    page: ProfileScreen(),
+  ),
+  _CatalogEntry(
+    title: 'Settings',
+    subtitle: 'Switch tiles · action sheet · groups',
+    icon: Icons.settings_outlined,
+    page: SettingsScreen(),
+  ),
+  _CatalogEntry(
+    title: 'Chat',
+    subtitle: 'Message bubbles · composer · status',
+    icon: Icons.forum_outlined,
+    page: ChatScreen(),
+  ),
+];
+
 class _CatalogHome extends StatelessWidget {
   const _CatalogHome({required this.mode, required this.onToggleTheme});
   final ThemeMode mode;
@@ -218,6 +299,19 @@ class _CatalogHome extends StatelessWidget {
                     ),
                     const SizedBox(height: WlmTokens.spaceMd),
                     _CategoryGrid(entries: _entries, wide: wide),
+                    const SizedBox(height: WlmTokens.spaceXl),
+                    Row(
+                      children: [
+                        const WlmSectionLabel('Templates'),
+                        const Spacer(),
+                        Text(
+                          '${_templates.length} demo screens',
+                          style: WlmType.tiny(scheme.outline),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: WlmTokens.spaceMd),
+                    _CategoryGrid(entries: _templates, wide: wide),
                     const SizedBox(height: WlmTokens.spaceXl),
                     const _Footer(),
                   ],
@@ -331,35 +425,95 @@ class _StatStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, c) {
-        final wide = c.maxWidth >= 560;
+        final wlm = WlmThemeExtension.of(context);
         final tiles = const [
           WlmStat(
             label: 'Components',
-            value: '70+',
-            trend: '+10 in v0.3',
+            value: '74+',
+            trend: '+14 in v0.3',
             trendPositive: true,
           ),
           WlmStat(label: 'Tokens', value: '24'),
           WlmStat(label: 'License', value: 'MIT'),
           WlmStat(label: 'Themes', value: 'LIGHT · DARK'),
         ];
+        // Single bordered strip — tiles separated by a vertical hairline
+        // when there's room, otherwise a 2-col grid that always reads
+        // top-to-bottom, left-to-right with consistent left alignment.
+        final wide = c.maxWidth >= 720;
+        final mid = c.maxWidth >= 420;
         if (wide) {
-          return Row(
-            children: [
-              for (var i = 0; i < tiles.length; i++) ...[
-                if (i > 0) const SizedBox(width: WlmTokens.spaceMd),
-                Expanded(child: tiles[i]),
-              ],
-            ],
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(WlmTokens.radLg),
+              border: Border.all(
+                color: wlm.hairline,
+                width: WlmTokens.hairline,
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: WlmTokens.spaceLg,
+              vertical: WlmTokens.spaceLg,
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  for (var i = 0; i < tiles.length; i++) ...[
+                    if (i > 0)
+                      Container(
+                        width: WlmTokens.hairline,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: WlmTokens.spaceLg,
+                        ),
+                        color: wlm.hairline,
+                      ),
+                    Expanded(child: tiles[i]),
+                  ],
+                ],
+              ),
+            ),
           );
         }
-        return Column(
-          children: [
-            for (var i = 0; i < tiles.length; i++) ...[
-              if (i > 0) const SizedBox(height: WlmTokens.spaceSm),
-              tiles[i],
+        // 2-col grid for medium / narrow — every tile gets equal width
+        // and is left-aligned via SizedBox(width: double.infinity).
+        final cols = mid ? 2 : 2;
+        final rows = (tiles.length / cols).ceil();
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(WlmTokens.radLg),
+            border: Border.all(
+              color: wlm.hairline,
+              width: WlmTokens.hairline,
+            ),
+          ),
+          padding: const EdgeInsets.all(WlmTokens.spaceLg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (var r = 0; r < rows; r++) ...[
+                if (r > 0) const SizedBox(height: WlmTokens.spaceLg),
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (var col = 0; col < cols; col++) ...[
+                        if (col > 0)
+                          const SizedBox(width: WlmTokens.spaceLg),
+                        Expanded(
+                          child: r * cols + col < tiles.length
+                              ? SizedBox(
+                                  width: double.infinity,
+                                  child: tiles[r * cols + col],
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         );
       },
     );

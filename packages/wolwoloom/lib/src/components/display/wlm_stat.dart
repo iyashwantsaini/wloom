@@ -34,12 +34,19 @@ class WlmStat extends StatelessWidget {
           style: WlmType.label(scheme.outline).copyWith(letterSpacing: 1.4),
         ),
         const SizedBox(height: WlmTokens.spaceSm),
-        Text(
-          value,
-          style: WlmType.h1(scheme.onSurface).copyWith(
-            fontSize: 32,
-            fontWeight: FontWeight.w300,
-            letterSpacing: -1.0,
+        // FittedBox prevents long values like "LIGHT · DARK" from
+        // wrapping out of narrow columns.
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: AlignmentDirectional.centerStart,
+          child: Text(
+            value,
+            maxLines: 1,
+            style: WlmType.h1(scheme.onSurface).copyWith(
+              fontSize: 32,
+              fontWeight: FontWeight.w300,
+              letterSpacing: -1.0,
+            ),
           ),
         ),
         if (trend != null) ...[

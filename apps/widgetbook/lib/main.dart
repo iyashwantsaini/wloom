@@ -288,11 +288,84 @@ class WidgetbookApp extends StatelessWidget {
                 ],
               ),
             )),
+            _component('Timeline', (_) => SizedBox(
+              width: 360,
+              child: WlmTimeline(
+                events: const [
+                  WlmTimelineEvent(
+                    title: 'Deploy succeeded · v0.3.1',
+                    time: '2m ago',
+                    body: 'Pages workflow finished in 1m 42s.',
+                    icon: Icons.rocket_launch_rounded,
+                  ),
+                  WlmTimelineEvent(
+                    title: 'New PR · #42',
+                    time: '14m ago',
+                    icon: Icons.code_rounded,
+                  ),
+                  WlmTimelineEvent(
+                    title: 'CI passed on main',
+                    time: '32m ago',
+                    icon: Icons.check_circle_outline_rounded,
+                  ),
+                ],
+              ),
+            )),
+            _component('Message bubble', (ctx) => SizedBox(
+              width: 360,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const WlmMessageBubble(
+                    author: 'Miko',
+                    text: 'Hey — did you see the new editorial layout?',
+                    side: WlmMessageSide.incoming,
+                    time: '09:14',
+                  ),
+                  const SizedBox(height: WlmTokens.spaceSm),
+                  WlmMessageBubble(
+                    text: ctx.knobs.string(label: 'Reply', initialValue: 'Yeah, looks slick.'),
+                    side: WlmMessageSide.outgoing,
+                    time: '09:15',
+                    status: WlmMessageStatus.read,
+                  ),
+                ],
+              ),
+            )),
+            _component('KPI card', (ctx) => SizedBox(
+              width: 280,
+              child: WlmKpiCard(
+                label: ctx.knobs.string(label: 'Label', initialValue: 'Active sessions'),
+                value: ctx.knobs.string(label: 'Value', initialValue: '2,431'),
+                delta: '+12.4% vs last week',
+                deltaPositive: ctx.knobs.boolean(label: 'Positive', initialValue: true),
+                icon: Icons.bolt_outlined,
+                sparkline: const [4, 5, 4, 6, 7, 6, 8, 9, 8, 11],
+              ),
+            )),
           ],
         ),
         WidgetbookCategory(
           name: 'Layout',
           children: [
+            _component('Surface', (ctx) => SizedBox(
+              width: 320,
+              child: WlmSurface(
+                padding: const EdgeInsets.all(WlmTokens.spaceLg),
+                radius: ctx.knobs.double.slider(label: 'Radius', initialValue: 12, min: 0, max: 28),
+                border: ctx.knobs.object.dropdown(
+                  label: 'Border',
+                  options: WlmSurfaceBorder.values,
+                  initialOption: WlmSurfaceBorder.hairline,
+                ),
+                shadow: ctx.knobs.object.dropdown(
+                  label: 'Shadow',
+                  options: WlmSurfaceShadow.values,
+                  initialOption: WlmSurfaceShadow.none,
+                ),
+                child: const Text('Surface body — fully customizable wrapper.'),
+              ),
+            )),
             _component('Card', (ctx) => SizedBox(
               width: 320,
               child: WlmCard(
@@ -534,6 +607,22 @@ class WidgetbookApp extends StatelessWidget {
                     WlmCommand(id: '1', label: 'New wallpaper', group: 'Create', icon: Icons.add, onRun: () {}),
                     WlmCommand(id: '2', label: 'Toggle theme', group: 'Settings', icon: Icons.contrast_rounded, onRun: () {}),
                     WlmCommand(id: '3', label: 'Sign out', group: 'Account', icon: Icons.logout_rounded, onRun: () {}),
+                  ],
+                ),
+              ),
+            )),
+            _component('Action sheet', (_) => Builder(
+              builder: (context) => WlmPrimaryButton(
+                label: 'Open action sheet',
+                onPressed: () => WlmActionSheet.show(
+                  context,
+                  title: 'Photo',
+                  message: 'Choose what to do with this photo.',
+                  items: [
+                    WlmActionSheetItem(label: 'Save to library', icon: Icons.download_rounded, onTap: () {}),
+                    WlmActionSheetItem(label: 'Set as wallpaper', icon: Icons.wallpaper_rounded, onTap: () {}),
+                    WlmActionSheetItem(label: 'Share', icon: Icons.share_outlined, onTap: () {}),
+                    WlmActionSheetItem(label: 'Delete', icon: Icons.delete_outline_rounded, destructive: true, onTap: () {}),
                   ],
                 ),
               ),

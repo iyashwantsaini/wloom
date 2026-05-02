@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/screenshots/wlm-icon.png" alt="Wolwoloom" width="120" /></p>
+
 # Wolwoloom
 
 > An editorial / typewriter-flavored Flutter design system. Mono typography, hairline borders, ink-on-paper palette with a periwinkle accent. Extracted from the [`wolwo`](https://github.com/iyashwantsaini/wolwo) wallpaper app.
@@ -27,7 +29,7 @@ MaterialApp(
 
 ```yaml
 dependencies:
-  wolwoloom: ^0.1.0
+  wolwoloom: ^0.3.1
 ```
 
 ```sh
@@ -45,9 +47,73 @@ Two apps live in this repo and are both built by CI on every push to `main`:
 
 ### Screenshots
 
-| Catalog (light) | Catalog (dark) | Widgetbook (web) |
-| --- | --- | --- |
-| ![Catalog light](docs/screenshots/catalog-light.png) | ![Catalog dark](docs/screenshots/catalog-dark.png) | ![Widgetbook](docs/screenshots/widgetbook-web.png) |
+#### Catalog app — home & component categories
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/catalog-home-dark.png" width="280"/><br/><sub>Catalog · dark</sub></td>
+    <td align="center"><img src="docs/screenshots/catalog-home-light.png" width="280"/><br/><sub>Catalog · light</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/page-foundations.png" width="280"/><br/><sub>Foundations</sub></td>
+    <td align="center"><img src="docs/screenshots/page-buttons.png" width="280"/><br/><sub>Buttons</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/page-inputs.png" width="280"/><br/><sub>Inputs</sub></td>
+    <td align="center"><img src="docs/screenshots/page-forms.png" width="280"/><br/><sub>Forms</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/page-display.png" width="280"/><br/><sub>Display</sub></td>
+    <td align="center"><img src="docs/screenshots/page-layout.png" width="280"/><br/><sub>Layout</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/page-lists.png" width="280"/><br/><sub>Lists</sub></td>
+    <td align="center"><img src="docs/screenshots/page-feedback.png" width="280"/><br/><sub>Feedback</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/page-navigation.png" width="280"/><br/><sub>Navigation</sub></td>
+    <td align="center"><img src="docs/screenshots/page-overlays.png" width="280"/><br/><sub>Overlays</sub></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><img src="docs/screenshots/page-media.png" width="280"/><br/><sub>Media</sub></td>
+  </tr>
+</table>
+
+#### Demo screens — drop-in templates built from the kit
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/screen-login.png" width="240"/><br/><sub>Login</sub></td>
+    <td align="center"><img src="docs/screenshots/screen-onboarding.png" width="240"/><br/><sub>Onboarding</sub></td>
+    <td align="center"><img src="docs/screenshots/screen-dashboard.png" width="240"/><br/><sub>Dashboard</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/screen-profile.png" width="240"/><br/><sub>Profile</sub></td>
+    <td align="center"><img src="docs/screenshots/screen-settings.png" width="240"/><br/><sub>Settings</sub></td>
+    <td align="center"><img src="docs/screenshots/screen-chat.png" width="240"/><br/><sub>Chat</sub></td>
+  </tr>
+</table>
+
+#### Widgetbook — interactive gallery with knobs, themes, and viewport switching
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/wb-foundations-typography.png" width="280"/><br/><sub>Typography</sub></td>
+    <td align="center"><img src="docs/screenshots/wb-foundations-palette.png" width="280"/><br/><sub>Palette</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/wb-buttons.png" width="280"/><br/><sub>Buttons</sub></td>
+    <td align="center"><img src="docs/screenshots/wb-kpi-card.png" width="280"/><br/><sub>KPI card</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/wb-timeline.png" width="280"/><br/><sub>Timeline</sub></td>
+    <td align="center"><img src="docs/screenshots/wb-message-bubble.png" width="280"/><br/><sub>Message bubble</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/wb-layout-surface.png" width="280"/><br/><sub>Surface</sub></td>
+    <td align="center"><img src="docs/screenshots/wb-action-sheet.png" width="280"/><br/><sub>Action sheet</sub></td>
+  </tr>
+</table>
 
 ## Components
 
@@ -56,12 +122,12 @@ Two apps live in this repo and are both built by CI on every push to `main`:
 | Foundations  | `WlmTokens`, `WlmColors`, `WlmType`, `WlmMotion`, `WlmTheme`, `WlmThemeExtension`, `WlmBreakpoint`, `WlmResponsive`                                                                                    |
 | Buttons      | `WlmPrimaryButton`, `WlmSecondaryButton`, `WlmGhostButton`, `WlmIconButton`, `WlmHeaderIconButton`, `WlmFab`                                                                                           |
 | Inputs       | `WlmTextField`, `WlmSearchField`, `WlmKeyField`, `WlmCheckbox`, `WlmRadio`, `WlmSegmentedControl`, `WlmDropdown`, `WlmSlider`, `WlmStepper`, `WlmDateField`, `WlmRating`                               |
-| Display      | `WlmBadge`, `WlmChip`, `WlmPill`, `WlmSpecRow`, `WlmDivider`, `WlmAvatar`, `WlmAvatarStack`, `WlmTag`, `WlmKbd`, `WlmStat`, `WlmCallout`, `WlmCodeBlock`, `WlmProgressBar`, `WlmProgressRing`, `WlmTooltip` |
-| Layout       | `WlmCard`, `WlmPageHeader`, `WlmSectionLabel`, `WlmAppBar`, `WlmAppScaffold`, `WlmAccordion`, `WlmBreadcrumbs`, `WlmDrawer`                                                                            |
+| Display      | `WlmBadge`, `WlmChip`, `WlmPill`, `WlmSpecRow`, `WlmDivider`, `WlmAvatar`, `WlmAvatarStack`, `WlmTag`, `WlmKbd`, `WlmStat`, `WlmCallout`, `WlmCodeBlock`, `WlmProgressBar`, `WlmProgressRing`, `WlmTooltip`, `WlmDataTable`, `WlmTimeline`, `WlmMessageBubble`, `WlmKpiCard` |
+| Layout       | `WlmSurface`, `WlmCard`, `WlmPageHeader`, `WlmSectionLabel`, `WlmAppBar`, `WlmAppScaffold`, `WlmAccordion`, `WlmBreadcrumbs`, `WlmDrawer`                                                              |
 | Lists        | `WlmListTile`, `WlmActionRow`, `WlmSwitchTile`, `WlmCheckboxTile`, `WlmRadioTile`                                                                                                                      |
 | Feedback     | `WlmLoader`, `WlmScanBar`, `WlmSkeleton`, `WlmGridSkeleton`, `WlmSnack`, `WlmToast`, `WlmBanner`, `WlmEmptyState`, `WlmErrorState`                                                                     |
 | Navigation   | `WlmBottomNav`, `WlmStepDots`, `WlmTabBar`, `WlmShell`                                                                                                                                                 |
-| Overlays     | `showWlmBottomSheet`, `WlmDialog`                                                                                                                                                                      |
+| Overlays     | `showWlmBottomSheet`, `WlmDialog`, `WlmCommandPalette`, `WlmActionSheet`                                                                                                                              |
 | Media        | `WlmNetworkImage`, `WlmProgressiveImage`, `WlmMasonryGrid`                                                                                                                                             |
 
 `Switch`, `Checkbox`, `Radio`, `AppBar`, `SnackBar`, `BottomNavigationBar`, `Card` and `TextSelection` are restyled automatically by `WlmTheme` — use the stock Material widgets and they'll match.

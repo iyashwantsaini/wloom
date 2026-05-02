@@ -1,12 +1,12 @@
 {
-    "name": "wolwoloom_example",
-    "short_name": "wolwoloom_example",
+    "name": "wolwoloom — catalog",
+    "short_name": "wolwoloom",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#0a0a0c",
+    "theme_color": "#0a0a0c",
+    "description": "Editorial / typewriter Flutter design system catalog.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

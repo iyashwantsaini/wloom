@@ -1,12 +1,12 @@
 {
-    "name": "wolwoloom_widgetbook",
-    "short_name": "wolwoloom_widgetbook",
+    "name": "wolwoloom — widgetbook",
+    "short_name": "wolwoloom wb",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#0a0a0c",
+    "theme_color": "#0a0a0c",
+    "description": "Interactive widgetbook for the wolwoloom design system.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

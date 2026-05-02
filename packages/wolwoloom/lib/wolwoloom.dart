@@ -70,8 +70,12 @@ export 'src/components/display/wlm_progress_bar.dart';
 export 'src/components/display/wlm_progress_ring.dart';
 export 'src/components/display/wlm_tooltip.dart';
 export 'src/components/display/wlm_data_table.dart';
+export 'src/components/display/wlm_timeline.dart';
+export 'src/components/display/wlm_message_bubble.dart';
+export 'src/components/display/wlm_kpi_card.dart';
 
 // Components — layout
+export 'src/components/layout/wlm_surface.dart';
 export 'src/components/layout/wlm_card.dart';
 export 'src/components/layout/wlm_page_header.dart';
 export 'src/components/layout/wlm_section_label.dart';
@@ -113,6 +117,7 @@ export 'src/components/overlays/wlm_dialog.dart';
 export 'src/components/overlays/wlm_popover.dart';
 export 'src/components/overlays/wlm_menu.dart';
 export 'src/components/overlays/wlm_command_palette.dart';
+export 'src/components/overlays/wlm_action_sheet.dart';
 
 // Components — media
 export 'src/components/media/wlm_network_image.dart';
