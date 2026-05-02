@@ -1,6 +1,6 @@
 {
-    "name": "wolwoloom — catalog",
-    "short_name": "wolwoloom",
+    "name": "Wolwoloom Catalog",
+    "short_name": "Wolwoloom",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0a0a0c",

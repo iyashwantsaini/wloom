@@ -90,6 +90,25 @@ def write_set(out_dir: Path):
     print(f"wrote icon set to {out_dir}")
 
 
+# Android mipmap density buckets -> launcher icon size in px
+_MIPMAP = {
+    "mipmap-mdpi": 48,
+    "mipmap-hdpi": 72,
+    "mipmap-xhdpi": 96,
+    "mipmap-xxhdpi": 144,
+    "mipmap-xxxhdpi": 192,
+}
+
+
+def write_android(res_dir: Path):
+    res_dir.mkdir(parents=True, exist_ok=True)
+    for bucket, px in _MIPMAP.items():
+        d = res_dir / bucket
+        d.mkdir(exist_ok=True)
+        draw_icon(px).save(d / "ic_launcher.png")
+    print(f"wrote android launchers to {res_dir}")
+
+
 if __name__ == "__main__":
     import sys
     targets = sys.argv[1:] or [
@@ -98,3 +117,9 @@ if __name__ == "__main__":
     ]
     for t in targets:
         write_set(Path(t))
+    # Android launcher icons for both apps.
+    for res in (
+        "packages/wolwoloom/example/android/app/src/main/res",
+        "apps/widgetbook/android/app/src/main/res",
+    ):
+        write_android(Path(res))

@@ -389,21 +389,20 @@ class _Hero extends StatelessWidget {
           const SizedBox(height: WlmTokens.spaceLg),
           Align(
             alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
+            child: Wrap(
+              spacing: WlmTokens.spaceSm,
+              runSpacing: WlmTokens.spaceSm,
               children: [
                 WlmPrimaryButton(
                   label: 'GET STARTED',
                   icon: Icons.arrow_forward_rounded,
                   onPressed: () {},
                 ),
-                const SizedBox(width: WlmTokens.spaceSm),
                 WlmGhostButton(
                   label: 'GITHUB',
                   icon: Icons.code_rounded,
                   onPressed: () {},
                 ),
-                const SizedBox(width: WlmTokens.spaceSm),
                 WlmGhostButton(
                   label: 'WIDGETBOOK',
                   icon: Icons.grid_view_rounded,
