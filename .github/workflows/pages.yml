@@ -1,0 +1,70 @@
+name: Deploy widgetbook to Pages
+
+# Builds the interactive component gallery (apps/widgetbook) as a static
+# web bundle and publishes it to GitHub Pages on every push to `main`.
+#
+# Setup (one-time):
+#   Repo → Settings → Pages → "Build and deployment" → Source: GitHub Actions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/widgetbook/**'
+      - 'packages/wolwoloom/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build widgetbook (web)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter (stable)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Pub get
+        working-directory: apps/widgetbook
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: apps/widgetbook
+        run: |
+          flutter build web \
+            --release \
+            --no-tree-shake-icons \
+            --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Add 404 fallback (SPA routing)
+        run: cp apps/widgetbook/build/web/index.html apps/widgetbook/build/web/404.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/widgetbook/build/web
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

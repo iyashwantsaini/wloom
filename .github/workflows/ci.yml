@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze-and-test:
+    name: Analyze + test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter (stable)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Verify Flutter
+        run: flutter --version
+
+      # Resolve deps for every project in one pass so caches warm up.
+      - name: Pub get — package
+        working-directory: packages/wolwoloom
+        run: flutter pub get
+      - name: Pub get — example
+        working-directory: packages/wolwoloom/example
+        run: flutter pub get
+      - name: Pub get — widgetbook
+        working-directory: apps/widgetbook
+        run: flutter pub get
+
+      - name: Analyze (package + example + widgetbook)
+        run: flutter analyze packages/wolwoloom packages/wolwoloom/example apps/widgetbook
+
+      - name: Test (package)
+        working-directory: packages/wolwoloom
+        run: flutter test --no-pub

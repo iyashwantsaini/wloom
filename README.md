@@ -2,7 +2,16 @@
 
 > An editorial / typewriter-flavored Flutter design system. Mono typography, hairline borders, ink-on-paper palette with a periwinkle accent. Extracted from the [`wolwo`](https://github.com/iyashwantsaini/wolwo) wallpaper app.
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.24%2B-02569B?logo=flutter)](https://flutter.dev) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![CI](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/ci.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/ci.yml)
+[![Pages](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/pages.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/pages.yml)
+[![Release](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/release.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/release.yml)
+[![Flutter](https://img.shields.io/badge/Flutter-3.24%2B-02569B?logo=flutter)](https://flutter.dev)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+**Showcase** —
+
+* Live web gallery → **<https://iyashwantsaini.github.io/WolwoLoom/>** (auto-deploys on every push to `main`).
+* Android APKs (catalog app + widgetbook) → **[Releases](https://github.com/iyashwantsaini/WolwoLoom/releases/latest)** (built on every `v*` tag).
 
 ```dart
 import 'package:wolwoloom/wolwoloom.dart';
@@ -24,6 +33,23 @@ dependencies:
 ```sh
 flutter pub add wolwoloom
 ```
+
+## Showcase
+
+Two apps live in this repo and are both built by CI on every push to `main`:
+
+| Showcase | What it is | Where to find it |
+| --- | --- | --- |
+| **Catalog app** ([`packages/wolwoloom/example`](packages/wolwoloom/example)) | A Flutter app that opens straight into a categorised catalog of every component, with a theme toggle in the app bar. Built for Android / iOS / desktop / web. | APK on the latest [release](https://github.com/iyashwantsaini/WolwoLoom/releases/latest) — `wolwoloom-example-*.apk` |
+| **Widgetbook gallery** ([`apps/widgetbook`](apps/widgetbook)) | Interactive component gallery with knobs, light/dark themes, and viewport switching. Same source ships as web *and* APK. | Web: <https://iyashwantsaini.github.io/WolwoLoom/> · APK: `wolwoloom-widgetbook-*.apk` on the latest release |
+
+### Screenshots
+
+> Add real screenshots to `docs/screenshots/` (PNG, ~390×844). The README references the filenames below — drop replacements in and they'll show up automatically.
+
+| Catalog (light) | Catalog (dark) | Widgetbook (web) |
+| --- | --- | --- |
+| ![Catalog light](docs/screenshots/catalog-light.png) | ![Catalog dark](docs/screenshots/catalog-dark.png) | ![Widgetbook](docs/screenshots/widgetbook-web.png) |
 
 ## Components
 
@@ -68,10 +94,10 @@ WolwoLoom/
 └── LICENSE
 ```
 
-## Run
+## Run locally
 
 ```sh
-# Example app — runs the design system on Android / iOS / Web
+# Catalog app — runs the design system on Android / iOS / desktop / web
 cd packages/wolwoloom/example
 flutter run                      # Android / iOS / desktop
 flutter run -d chrome            # Web
@@ -82,14 +108,21 @@ flutter run -d chrome            # browse every component with knobs
 flutter build web                # ship the gallery as a static site
 ```
 
-## Static showcase site
+## CI / publishing
 
-The widgetbook builds to a single `build/web/` folder you can drop on any static host (GitHub Pages, Netlify, Cloudflare Pages):
+Three GitHub Actions workflows live under [`.github/workflows/`](.github/workflows):
+
+| Workflow | Trigger | What it does |
+| --- | --- | --- |
+| [`ci.yml`](.github/workflows/ci.yml) | Push & PR to `main` | `flutter analyze` across the package, example and widgetbook · `flutter test` for the package. |
+| [`pages.yml`](.github/workflows/pages.yml) | Push to `main` (paths: `apps/widgetbook/**`, `packages/wolwoloom/**`) · `workflow_dispatch` | Builds the widgetbook for web and deploys it to GitHub Pages. **One-time setup:** *Repo → Settings → Pages → Source: GitHub Actions.* |
+| [`release.yml`](.github/workflows/release.yml) | Push of any `v*` tag · `workflow_dispatch` | Builds release APKs for both showcase apps (split-per-ABI + universal) and publishes them to a GitHub Release. Optionally signs with a keystore from repo secrets — see the comments at the top of the file. |
+
+To cut a release:
 
 ```sh
-cd apps/widgetbook
-flutter build web --release --base-href /WolwoLoom/
-# upload build/web/  →  e.g. gh-pages branch
+git tag v0.2.0
+git push origin v0.2.0
 ```
 
 ## Roadmap

@@ -1,0 +1,218 @@
+name: Build and Release showcase APKs
+
+# Triggers:
+#   - push of any tag starting with `v` (e.g. `v0.2.0`)  → publishes a release
+#   - manual dispatch                                    → builds without publishing
+#
+# Builds:
+#   - example app (packages/wolwoloom/example) — split-per-abi + universal
+#   - widgetbook  (apps/widgetbook)            — universal only
+#
+# Note: APKs are signed with the debug key by default. To get
+# upgrade-compatible signed APKs add these repo secrets and the workflow
+# will pick them up automatically:
+#   ANDROID_KEYSTORE_BASE64
+#   ANDROID_KEYSTORE_PASSWORD
+#   ANDROID_KEY_ALIAS
+#   ANDROID_KEY_PASSWORD
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      release_notes:
+        description: "Optional release notes (Markdown). Leave empty to auto-generate from commit history."
+        required: false
+        default: ""
+      publish:
+        description: "Publish a GitHub release (requires you to push a tag)?"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build APKs
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter (stable)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      - name: Cache pub
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - name: Pub get — package
+        working-directory: packages/wolwoloom
+        run: flutter pub get
+      - name: Pub get — example
+        working-directory: packages/wolwoloom/example
+        run: flutter pub get
+      - name: Pub get — widgetbook
+        working-directory: apps/widgetbook
+        run: flutter pub get
+
+      - name: Derive release version
+        id: version
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          else
+            VERSION=$(grep '^version:' packages/wolwoloom/pubspec.yaml | awk '{print $2}' | cut -d'+' -f1)
+          fi
+          if [[ -z "$VERSION" ]]; then
+            echo "::error::Could not determine version"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Version: $VERSION"
+
+      # ── Optional release signing ─────────────────────────────
+      - name: Detect keystore secret
+        run: |
+          if [[ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]]; then
+            echo "HAVE_KEYSTORE=true" >> "$GITHUB_ENV"
+          else
+            echo "HAVE_KEYSTORE=false" >> "$GITHUB_ENV"
+            echo "::warning::ANDROID_KEYSTORE_BASE64 not set — APKs will be signed with the debug key (not upgrade-compatible)."
+          fi
+
+      - name: Decode signing keystore
+        if: ${{ env.HAVE_KEYSTORE == 'true' }}
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          for app_dir in packages/wolwoloom/example apps/widgetbook; do
+            mkdir -p "$app_dir/android/app"
+            echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$app_dir/android/app/wolwoloom-release.keystore"
+            cat > "$app_dir/android/key.properties" <<EOF
+          storeFile=wolwoloom-release.keystore
+          storePassword=$ANDROID_KEYSTORE_PASSWORD
+          keyAlias=$ANDROID_KEY_ALIAS
+          keyPassword=$ANDROID_KEY_PASSWORD
+          EOF
+          done
+
+      # ── Builds ────────────────────────────────────────────────
+      - name: Build example APKs (split + universal)
+        working-directory: packages/wolwoloom/example
+        run: |
+          flutter build apk --release --split-per-abi
+          flutter build apk --release
+
+      - name: Build widgetbook APK (universal)
+        working-directory: apps/widgetbook
+        run: flutter build apk --release
+
+      # ── Collect & rename ─────────────────────────────────────
+      - name: Collect APKs
+        run: |
+          V=${{ steps.version.outputs.version }}
+          mkdir -p release-apks
+          EX=packages/wolwoloom/example/build/app/outputs/flutter-apk
+          for abi in arm64-v8a armeabi-v7a x86_64; do
+            if [[ -f "$EX/app-$abi-release.apk" ]]; then
+              cp "$EX/app-$abi-release.apk" "release-apks/wolwoloom-example-v${V}-${abi}.apk"
+            fi
+          done
+          if [[ -f "$EX/app-release.apk" ]]; then
+            cp "$EX/app-release.apk" "release-apks/wolwoloom-example-v${V}-universal.apk"
+          fi
+          WB=apps/widgetbook/build/app/outputs/flutter-apk
+          if [[ -f "$WB/app-release.apk" ]]; then
+            cp "$WB/app-release.apk" "release-apks/wolwoloom-widgetbook-v${V}-universal.apk"
+          fi
+          ls -la release-apks/
+
+      # ── Release notes ────────────────────────────────────────
+      - name: Generate release notes
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          if [[ -n "${{ github.event.inputs.release_notes }}" ]]; then
+            echo "${{ github.event.inputs.release_notes }}" > release-notes.md
+          else
+            LAST_TAG=$(git describe --tags --abbrev=0 "HEAD^" 2>/dev/null || echo "")
+            {
+              echo "## Wolwoloom v${{ steps.version.outputs.version }}"
+              echo ""
+              echo "Editorial / typewriter Flutter design system."
+              echo ""
+              if [[ -n "$LAST_TAG" ]]; then
+                echo "### Changes since \`$LAST_TAG\`"
+                echo ""
+                git log "${LAST_TAG}..HEAD" --pretty=format:"- %s (%h)" --no-merges -10
+              else
+                echo "### Recent commits"
+                echo ""
+                git log --pretty=format:"- %s (%h)" --no-merges -10
+              fi
+              echo ""
+              echo ""
+              echo "### Showcase APKs"
+              echo ""
+              echo "- **\`wolwoloom-example-*.apk\`** — the example app (showcases each component on real screens)."
+              echo "  - Pick \`arm64-v8a\` for nearly every modern phone, or \`universal\` if you don't know."
+              echo "- **\`wolwoloom-widgetbook-*.apk\`** — the interactive component gallery, on-device."
+              echo ""
+              echo "Live web gallery: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+            } > release-notes.md
+          fi
+          cat release-notes.md
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wolwoloom-v${{ steps.version.outputs.version }}-apks
+          path: release-apks/*.apk
+          if-no-files-found: error
+
+      - name: Create / update GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          V: ${{ steps.version.outputs.version }}
+        run: |
+          if gh release view "v$V" >/dev/null 2>&1; then
+            gh release upload "v$V" release-apks/*.apk --clobber
+            gh release edit   "v$V" --notes-file release-notes.md --draft=false --latest
+          else
+            gh release create "v$V" release-apks/*.apk \
+              --title "Wolwoloom v$V" \
+              --notes-file release-notes.md \
+              --latest
+          fi

@@ -1,250 +1,260 @@
 import 'package:flutter/material.dart';
 import 'package:wolwoloom/wolwoloom.dart';
 
+import 'pages/buttons_page.dart';
+import 'pages/display_page.dart';
+import 'pages/feedback_page.dart';
+import 'pages/foundations_page.dart';
+import 'pages/inputs_page.dart';
+import 'pages/layout_page.dart';
+import 'pages/lists_page.dart';
+import 'pages/media_page.dart';
+import 'pages/navigation_page.dart';
+import 'pages/overlays_page.dart';
+
 void main() => runApp(const ExampleApp());
 
-class ExampleApp extends StatelessWidget {
+class ExampleApp extends StatefulWidget {
   const ExampleApp({super.key});
+
+  @override
+  State<ExampleApp> createState() => _ExampleAppState();
+}
+
+class _ExampleAppState extends State<ExampleApp> {
+  ThemeMode _mode = ThemeMode.system;
+
+  void _toggle() {
+    setState(() {
+      _mode = switch (_mode) {
+        ThemeMode.system => ThemeMode.light,
+        ThemeMode.light => ThemeMode.dark,
+        ThemeMode.dark => ThemeMode.system,
+      };
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wolwoloom Example',
+      title: 'Wolwoloom Catalog',
       theme: WlmTheme.light(),
       darkTheme: WlmTheme.dark(),
-      themeMode: ThemeMode.system,
-      home: const _Home(),
+      themeMode: _mode,
+      home: _CatalogHome(mode: _mode, onToggleTheme: _toggle),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class _Home extends StatefulWidget {
-  const _Home();
-  @override
-  State<_Home> createState() => _HomeState();
+class _CatalogEntry {
+  const _CatalogEntry({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.page,
+  });
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Widget page;
 }
 
-class _HomeState extends State<_Home> {
-  int _tab = 0;
-  bool _switch = true;
+const _entries = <_CatalogEntry>[
+  _CatalogEntry(
+    title: 'Foundations',
+    subtitle: 'Tokens · type · palette',
+    icon: Icons.format_paint_outlined,
+    page: FoundationsPage(),
+  ),
+  _CatalogEntry(
+    title: 'Buttons',
+    subtitle: 'Primary · secondary · ghost · icon · FAB',
+    icon: Icons.smart_button_outlined,
+    page: ButtonsPage(),
+  ),
+  _CatalogEntry(
+    title: 'Inputs',
+    subtitle: 'Text · search · checkbox · slider · stepper',
+    icon: Icons.edit_outlined,
+    page: InputsPage(),
+  ),
+  _CatalogEntry(
+    title: 'Display',
+    subtitle: 'Avatars · tags · stats · callouts · code',
+    icon: Icons.dashboard_outlined,
+    page: DisplayPage(),
+  ),
+  _CatalogEntry(
+    title: 'Layout',
+    subtitle: 'Cards · accordion · breadcrumbs · drawer',
+    icon: Icons.view_quilt_outlined,
+    page: LayoutPage(),
+  ),
+  _CatalogEntry(
+    title: 'Lists',
+    subtitle: 'List · action · switch · checkbox · radio',
+    icon: Icons.list_alt_outlined,
+    page: ListsPage(),
+  ),
+  _CatalogEntry(
+    title: 'Feedback',
+    subtitle: 'Loaders · banners · toasts · empty/error',
+    icon: Icons.notifications_none_rounded,
+    page: FeedbackPage(),
+  ),
+  _CatalogEntry(
+    title: 'Navigation',
+    subtitle: 'Bottom nav · tabs · steps · shell',
+    icon: Icons.alt_route_rounded,
+    page: NavigationPage(),
+  ),
+  _CatalogEntry(
+    title: 'Overlays',
+    subtitle: 'Bottom sheet · dialog · tooltip',
+    icon: Icons.layers_outlined,
+    page: OverlaysPage(),
+  ),
+  _CatalogEntry(
+    title: 'Media',
+    subtitle: 'Network · progressive · masonry',
+    icon: Icons.image_outlined,
+    page: MediaPage(),
+  ),
+];
+
+class _CatalogHome extends StatelessWidget {
+  const _CatalogHome({required this.mode, required this.onToggleTheme});
+  final ThemeMode mode;
+  final VoidCallback onToggleTheme;
+
+  IconData get _modeIcon => switch (mode) {
+        ThemeMode.system => Icons.brightness_auto_outlined,
+        ThemeMode.light => Icons.light_mode_outlined,
+        ThemeMode.dark => Icons.dark_mode_outlined,
+      };
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
+      appBar: WlmAppBar(
+        title: 'Wolwoloom',
+        actions: [
+          WlmHeaderIconButton(
+            icon: _modeIcon,
+            tooltip: 'Theme: ${mode.name}',
+            onPressed: onToggleTheme,
+          ),
+        ],
+      ),
       body: SafeArea(
+        top: false,
         child: ListView(
+          padding: const EdgeInsets.fromLTRB(
+            WlmTokens.spaceLg,
+            WlmTokens.spaceMd,
+            WlmTokens.spaceLg,
+            WlmTokens.spaceXxl,
+          ),
           children: [
-            WlmPageHeader(
+            const WlmPageHeader(
               eyebrow: 'design system',
-              title: 'Wolwoloom',
-              subtitle: '30+ components · mono · hairline · ink',
-              actions: [
-                WlmHeaderIconButton(
-                  icon: Icons.search_rounded,
-                  tooltip: 'Search',
-                  onPressed: () {},
+              title: 'Editorial Flutter\nfor mono lovers',
+              subtitle: '60+ components · ink-on-paper · MIT',
+            ),
+            const SizedBox(height: WlmTokens.spaceLg),
+            Row(
+              children: const [
+                Expanded(
+                  child: WlmStat(
+                    label: 'Components',
+                    value: '60+',
+                    trend: '+30 in v0.2',
+                    trendPositive: true,
+                  ),
                 ),
-                WlmHeaderIconButton(
-                  icon: Icons.tune_rounded,
-                  tooltip: 'Filters',
-                  badge: true,
-                  onPressed: () {},
+                SizedBox(width: WlmTokens.spaceMd),
+                Expanded(
+                  child: WlmStat(label: 'Tokens', value: '24'),
+                ),
+                SizedBox(width: WlmTokens.spaceMd),
+                Expanded(
+                  child: WlmStat(label: 'License', value: 'MIT'),
                 ),
               ],
             ),
-            const WlmSectionLabel('Buttons'),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: WlmTokens.spaceLg),
-              child: Wrap(
-                spacing: WlmTokens.spaceSm,
-                runSpacing: WlmTokens.spaceSm,
-                children: [
-                  WlmPrimaryButton(label: 'Continue', onPressed: () {}),
-                  WlmSecondaryButton(label: 'Skip', onPressed: () {}),
-                  WlmGhostButton(
-                    label: 'Back',
-                    icon: Icons.arrow_back_rounded,
-                    onPressed: () {},
-                  ),
-                  WlmIconButton(
-                    icon: Icons.favorite_border,
-                    onPressed: () {},
-                    outlined: true,
-                  ),
-                ],
-              ),
-            ),
-            const WlmSectionLabel('Inputs'),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: WlmTokens.spaceLg),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const WlmSearchField(hintText: 'Search wallpapers'),
-                  const SizedBox(height: WlmTokens.spaceMd),
-                  const WlmTextField(
-                    label: 'Email',
-                    hintText: 'you@domain.com',
-                    helperText: 'We never share this.',
-                    prefixIcon: Icons.alternate_email,
-                  ),
-                  const SizedBox(height: WlmTokens.spaceMd),
-                  WlmKeyField(
-                    label: 'Wallhaven API key',
-                    hintText: 'paste your key',
-                    onGetKey: () {},
-                  ),
-                ],
-              ),
-            ),
-            const WlmSectionLabel('Display'),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: WlmTokens.spaceLg),
-              child: Wrap(
-                spacing: WlmTokens.spaceSm,
-                runSpacing: WlmTokens.spaceSm,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  const WlmBadge(label: 'Beta'),
-                  WlmBadge(label: 'New', color: scheme.secondary),
-                  const WlmPill(label: 'Wh'),
-                  WlmChip(label: 'Nature', onTap: () {}),
-                  WlmChip(label: 'Galaxy', onTap: () {}, filled: true),
-                  WlmChip(label: 'Selected', onTap: () {}, selected: true),
-                ],
-              ),
-            ),
-            const WlmSectionLabel('Spec sheet'),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: WlmTokens.spaceLg),
-              child: Column(
-                children: [
-                  WlmSpecRow(label: 'Sources', value: 'WALLHAVEN · REDDIT · NASA'),
-                  WlmSpecRow(label: 'Tracking', value: 'NONE'),
-                  WlmSpecRow(label: 'Storage', value: 'ON DEVICE'),
-                ],
-              ),
-            ),
-            const WlmSectionLabel('Card'),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: WlmTokens.spaceLg),
-              child: WlmCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Card title', style: WlmType.h2(scheme.onSurface)),
-                    const SizedBox(height: WlmTokens.spaceSm),
-                    Text(
-                      'Solid surface, hairline border, no shadows. Use this for any '
-                      'grouped content.',
-                      style: WlmType.bodySmall(scheme.outline),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            const SizedBox(height: WlmTokens.spaceXl),
+            const WlmSectionLabel('Catalog'),
             const SizedBox(height: WlmTokens.spaceMd),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: WlmTokens.spaceLg),
-              child: WlmSwitchTile(
-                title: 'Daily wallpaper',
-                subtitle: 'Rotate a new wallpaper each morning',
-                value: _switch,
-                onChanged: (v) => setState(() => _switch = v),
-                trailingBadge: const WlmBadge(label: 'New'),
-              ),
-            ),
-            const WlmSectionLabel('Feedback'),
+            for (final entry in _entries) ...[
+              _CategoryTile(entry: entry),
+              const SizedBox(height: WlmTokens.spaceMd),
+            ],
+            const SizedBox(height: WlmTokens.spaceLg),
             Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: WlmTokens.spaceLg),
-                child: Column(
-                  children: [
-                    const WlmLoader(label: 'Fetching wallpapers'),
-                    const SizedBox(height: WlmTokens.spaceLg),
-                    const WlmScanBar(),
-                    const SizedBox(height: WlmTokens.spaceLg),
-                    Wrap(
-                      spacing: WlmTokens.spaceMd,
-                      runSpacing: WlmTokens.spaceSm,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        WlmPrimaryButton(
-                          label: 'Snackbar',
-                          onPressed: () => WlmSnack.show(
-                            context,
-                            'Saved to favourites',
-                            actionLabel: 'Undo',
-                          ),
-                        ),
-                        WlmSecondaryButton(
-                          label: 'Dialog',
-                          onPressed: () => WlmDialog.show(
-                            context,
-                            title: 'Delete favourite?',
-                            body: 'This will remove the wallpaper from your '
-                                'on-device favourites list.',
-                            confirmLabel: 'Delete',
-                            destructive: true,
-                          ),
-                        ),
-                        WlmGhostButton(
-                          label: 'Bottom sheet',
-                          onPressed: () => showWlmBottomSheet<void>(
-                            context: context,
-                            builder: (ctx) => Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const WlmSectionLabel('Quick actions'),
-                                WlmActionRow(
-                                  icon: Icons.favorite_border,
-                                  label: 'Add to favourites',
-                                  onTap: () => Navigator.pop(ctx),
-                                ),
-                                WlmActionRow(
-                                  icon: Icons.share_outlined,
-                                  label: 'Share link',
-                                  onTap: () => Navigator.pop(ctx),
-                                ),
-                                WlmActionRow(
-                                  icon: Icons.delete_outline,
-                                  label: 'Remove',
-                                  destructive: true,
-                                  onTap: () => Navigator.pop(ctx),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              child: Text(
+                'wolwoloom · v0.2.0',
+                style: WlmType.tiny(scheme.outline),
               ),
             ),
-            const SizedBox(height: 80),
           ],
         ),
       ),
-      bottomNavigationBar: WlmBottomNav(
-        currentIndex: _tab,
-        onTap: (i) => setState(() => _tab = i),
-        items: const [
-          WlmNavItem(
-            icon: Icons.home_outlined,
-            activeIcon: Icons.home,
-            label: 'Home',
+    );
+  }
+}
+
+class _CategoryTile extends StatelessWidget {
+  const _CategoryTile({required this.entry});
+  final _CatalogEntry entry;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return WlmCard(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(WlmTokens.radMd),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => entry.page,
+            settings: RouteSettings(name: entry.title),
           ),
-          WlmNavItem(icon: Icons.search_rounded, label: 'Search'),
-          WlmNavItem(
-            icon: Icons.bookmark_outline,
-            activeIcon: Icons.bookmark,
-            label: 'Saved',
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(WlmTokens.spaceMd),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(WlmTokens.radSm),
+                  border: WlmTokens.hairlineBorder(scheme),
+                ),
+                alignment: Alignment.center,
+                child: Icon(entry.icon, size: 18, color: scheme.onSurface),
+              ),
+              const SizedBox(width: WlmTokens.spaceMd),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(entry.title, style: WlmType.h3(scheme.onSurface)),
+                    const SizedBox(height: 2),
+                    Text(entry.subtitle, style: WlmType.meta(scheme.outline)),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: scheme.outline,
+                size: 18,
+              ),
+            ],
           ),
-          WlmNavItem(icon: Icons.settings_outlined, label: 'Settings'),
-        ],
+        ),
       ),
     );
   }
