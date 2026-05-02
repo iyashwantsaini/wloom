@@ -161,8 +161,13 @@ class _CatalogHome extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: WlmAppBar(
-        title: 'Wolwoloom',
+        title: 'wolwoloom',
         actions: [
+          WlmHeaderIconButton(
+            icon: Icons.code_rounded,
+            tooltip: 'Source on GitHub',
+            onPressed: () {},
+          ),
           WlmHeaderIconButton(
             icon: _modeIcon,
             tooltip: 'Theme: ${mode.name}',
@@ -172,58 +177,233 @@ class _CatalogHome extends StatelessWidget {
       ),
       body: SafeArea(
         top: false,
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(
-            WlmTokens.spaceLg,
-            WlmTokens.spaceMd,
-            WlmTokens.spaceLg,
-            WlmTokens.spaceXxl,
-          ),
-          children: [
-            const WlmPageHeader(
-              eyebrow: 'design system',
-              title: 'Editorial Flutter\nfor mono lovers',
-              subtitle: '70+ components · ink-on-paper · MIT',
-            ),
-            const SizedBox(height: WlmTokens.spaceLg),
-            Row(
-              children: const [
-                Expanded(
-                  child: WlmStat(
-                    label: 'Components',
-                    value: '70+',
-                    trend: '+10 in v0.3',
-                    trendPositive: true,
+        child: LayoutBuilder(
+          builder: (context, c) {
+            final wide = c.maxWidth >= 720;
+            final maxW = c.maxWidth >= 1100 ? 1080.0 : c.maxWidth;
+            return Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: maxW),
+                child: ListView(
+                  padding: EdgeInsets.fromLTRB(
+                    wide ? WlmTokens.spaceXxl : WlmTokens.spaceLg,
+                    WlmTokens.spaceLg,
+                    wide ? WlmTokens.spaceXxl : WlmTokens.spaceLg,
+                    WlmTokens.spaceXxl,
                   ),
+                  children: [
+                    _Hero(wide: wide),
+                    const SizedBox(height: WlmTokens.spaceXl),
+                    const _StatStrip(),
+                    const SizedBox(height: WlmTokens.spaceXl),
+                    const WlmCallout(
+                      tone: WlmCalloutTone.info,
+                      title: 'New in v0.3.0',
+                      body:
+                          'Unified WlmButton (variant + size + loading) · '
+                          'Toaster queue · Popover · Menu · Combobox · '
+                          'PinInput · Toggle · DataTable · Pagination · '
+                          'Form + validators · Command palette (⌘K).',
+                    ),
+                    const SizedBox(height: WlmTokens.spaceXl),
+                    Row(
+                      children: [
+                        const WlmSectionLabel('Catalog'),
+                        const Spacer(),
+                        Text(
+                          '${_entries.length} sections',
+                          style: WlmType.tiny(scheme.outline),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: WlmTokens.spaceMd),
+                    _CategoryGrid(entries: _entries, wide: wide),
+                    const SizedBox(height: WlmTokens.spaceXl),
+                    const _Footer(),
+                  ],
                 ),
-                SizedBox(width: WlmTokens.spaceMd),
-                Expanded(
-                  child: WlmStat(label: 'Tokens', value: '24'),
-                ),
-                SizedBox(width: WlmTokens.spaceMd),
-                Expanded(
-                  child: WlmStat(label: 'License', value: 'MIT'),
-                ),
-              ],
-            ),
-            const SizedBox(height: WlmTokens.spaceXl),
-            const WlmSectionLabel('Catalog'),
-            const SizedBox(height: WlmTokens.spaceMd),
-            for (final entry in _entries) ...[
-              _CategoryTile(entry: entry),
-              const SizedBox(height: WlmTokens.spaceMd),
-            ],
-            const SizedBox(height: WlmTokens.spaceLg),
-            Center(
-              child: Text(
-                'wolwoloom · v0.3.0',
-                style: WlmType.tiny(scheme.outline),
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
+  }
+}
+
+class _Hero extends StatelessWidget {
+  const _Hero({required this.wide});
+  final bool wide;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final wlm = WlmThemeExtension.of(context);
+    final titleStyle = (wide ? WlmType.h1(scheme.onSurface) : WlmType.h1(scheme.onSurface))
+        .copyWith(
+      fontSize: wide ? 56 : 38,
+      height: 1.05,
+      letterSpacing: -1.2,
+    );
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+        WlmTokens.spaceLg,
+        wide ? WlmTokens.spaceXxl : WlmTokens.spaceXl,
+        WlmTokens.spaceLg,
+        wide ? WlmTokens.spaceXxl : WlmTokens.spaceXl,
+      ),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(WlmTokens.radLg),
+        border: Border.all(color: wlm.hairline, width: WlmTokens.hairline),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: WlmTokens.spaceSm,
+                  vertical: 2,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: wlm.hairline),
+                  borderRadius: BorderRadius.circular(WlmTokens.radSm),
+                ),
+                child: Text(
+                  'DESIGN SYSTEM · v0.3',
+                  style: WlmType.tiny(scheme.outline),
+                ),
+              ),
+              const SizedBox(width: WlmTokens.spaceSm),
+              const WlmBadge(label: 'MIT'),
+            ],
+          ),
+          const SizedBox(height: WlmTokens.spaceLg),
+          Text('Editorial Flutter\nfor mono lovers.', style: titleStyle),
+          const SizedBox(height: WlmTokens.spaceMd),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 560),
+            child: Text(
+              'A drop-in Material 3 design system with a typewriter soul. '
+              'Hairline borders, ALL-CAPS micro-labels, JetBrains Mono '
+              'across the entire surface — light and dark.',
+              style: WlmType.body(scheme.onSurfaceVariant).copyWith(height: 1.5),
+            ),
+          ),
+          const SizedBox(height: WlmTokens.spaceLg),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                WlmPrimaryButton(
+                  label: 'GET STARTED',
+                  icon: Icons.arrow_forward_rounded,
+                  onPressed: () {},
+                ),
+                const SizedBox(width: WlmTokens.spaceSm),
+                WlmGhostButton(
+                  label: 'GITHUB',
+                  icon: Icons.code_rounded,
+                  onPressed: () {},
+                ),
+                const SizedBox(width: WlmTokens.spaceSm),
+                WlmGhostButton(
+                  label: 'WIDGETBOOK',
+                  icon: Icons.grid_view_rounded,
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StatStrip extends StatelessWidget {
+  const _StatStrip();
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, c) {
+        final wide = c.maxWidth >= 560;
+        final tiles = const [
+          WlmStat(
+            label: 'Components',
+            value: '70+',
+            trend: '+10 in v0.3',
+            trendPositive: true,
+          ),
+          WlmStat(label: 'Tokens', value: '24'),
+          WlmStat(label: 'License', value: 'MIT'),
+          WlmStat(label: 'Themes', value: 'LIGHT · DARK'),
+        ];
+        if (wide) {
+          return Row(
+            children: [
+              for (var i = 0; i < tiles.length; i++) ...[
+                if (i > 0) const SizedBox(width: WlmTokens.spaceMd),
+                Expanded(child: tiles[i]),
+              ],
+            ],
+          );
+        }
+        return Column(
+          children: [
+            for (var i = 0; i < tiles.length; i++) ...[
+              if (i > 0) const SizedBox(height: WlmTokens.spaceSm),
+              tiles[i],
+            ],
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _CategoryGrid extends StatelessWidget {
+  const _CategoryGrid({required this.entries, required this.wide});
+  final List<_CatalogEntry> entries;
+  final bool wide;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!wide) {
+      return Column(
+        children: [
+          for (final e in entries) ...[
+            _CategoryTile(entry: e),
+            const SizedBox(height: WlmTokens.spaceSm),
+          ],
+        ],
+      );
+    }
+    final rows = <Widget>[];
+    for (var i = 0; i < entries.length; i += 2) {
+      final left = entries[i];
+      final right = i + 1 < entries.length ? entries[i + 1] : null;
+      rows.add(
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: _CategoryTile(entry: left)),
+            const SizedBox(width: WlmTokens.spaceMd),
+            Expanded(
+              child: right != null
+                  ? _CategoryTile(entry: right)
+                  : const SizedBox.shrink(),
+            ),
+          ],
+        ),
+      );
+      rows.add(const SizedBox(height: WlmTokens.spaceMd));
+    }
+    return Column(children: rows);
   }
 }
 
@@ -234,7 +414,10 @@ class _CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return WlmCard(
+    final wlm = WlmThemeExtension.of(context);
+    return Material(
+      color: scheme.surface,
+      borderRadius: BorderRadius.circular(WlmTokens.radMd),
       child: InkWell(
         borderRadius: BorderRadius.circular(WlmTokens.radMd),
         onTap: () => Navigator.of(context).push(
@@ -243,41 +426,81 @@ class _CategoryTile extends StatelessWidget {
             settings: RouteSettings(name: entry.title),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(WlmTokens.spaceMd),
-          child: Row(
+        child: Container(
+          padding: const EdgeInsets.all(WlmTokens.spaceLg),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(WlmTokens.radMd),
+            border: Border.all(color: wlm.hairline, width: WlmTokens.hairline),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(WlmTokens.radSm),
-                  border: WlmTokens.hairlineBorder(scheme),
-                ),
-                alignment: Alignment.center,
-                child: Icon(entry.icon, size: 18, color: scheme.onSurface),
+              Row(
+                children: [
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(WlmTokens.radSm),
+                      border: Border.all(color: wlm.hairline),
+                    ),
+                    alignment: Alignment.center,
+                    child: Icon(entry.icon, size: 18, color: scheme.onSurface),
+                  ),
+                  const Spacer(),
+                  Icon(
+                    Icons.arrow_outward_rounded,
+                    color: scheme.outline,
+                    size: 16,
+                  ),
+                ],
               ),
-              const SizedBox(width: WlmTokens.spaceMd),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(entry.title, style: WlmType.h3(scheme.onSurface)),
-                    const SizedBox(height: 2),
-                    Text(entry.subtitle, style: WlmType.meta(scheme.outline)),
-                  ],
-                ),
+              const SizedBox(height: WlmTokens.spaceMd),
+              Text(
+                entry.title.toUpperCase(),
+                style: WlmType.h3(scheme.onSurface).copyWith(letterSpacing: 0.4),
               ),
-              Icon(
-                Icons.chevron_right_rounded,
-                color: scheme.outline,
-                size: 18,
+              const SizedBox(height: 4),
+              Text(
+                entry.subtitle,
+                style: WlmType.meta(scheme.outline),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Footer extends StatelessWidget {
+  const _Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final wlm = WlmThemeExtension.of(context);
+    return Column(
+      children: [
+        Container(height: WlmTokens.hairline, color: wlm.hairline),
+        const SizedBox(height: WlmTokens.spaceMd),
+        Row(
+          children: [
+            Text(
+              'wolwoloom · v0.3.0',
+              style: WlmType.tiny(scheme.outline),
+            ),
+            const Spacer(),
+            Text(
+              'MIT · ink-on-paper',
+              style: WlmType.tiny(scheme.outline),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -102,16 +102,28 @@ class _WlmButtonState extends State<WlmButton> {
                   Icon(widget.icon, size: iconSize, color: colors.fg),
                   SizedBox(width: WlmTokens.spaceSm),
                 ],
-                Flexible(
-                  child: Text(
-                    widget.uppercase ? widget.label.toUpperCase() : widget.label,
-                    overflow: TextOverflow.ellipsis,
-                    style: WlmType.label(colors.fg).copyWith(
-                      fontSize: fontSize,
-                      letterSpacing: 1.4,
-                    ),
-                  ),
-                ),
+                widget.expand
+                    ? Flexible(
+                        child: Text(
+                          widget.uppercase
+                              ? widget.label.toUpperCase()
+                              : widget.label,
+                          overflow: TextOverflow.ellipsis,
+                          style: WlmType.label(colors.fg).copyWith(
+                            fontSize: fontSize,
+                            letterSpacing: 1.4,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        widget.uppercase
+                            ? widget.label.toUpperCase()
+                            : widget.label,
+                        style: WlmType.label(colors.fg).copyWith(
+                          fontSize: fontSize,
+                          letterSpacing: 1.4,
+                        ),
+                      ),
                 if (widget.trailingIcon != null) ...[
                   SizedBox(width: WlmTokens.spaceSm),
                   Icon(widget.trailingIcon, size: iconSize, color: colors.fg),

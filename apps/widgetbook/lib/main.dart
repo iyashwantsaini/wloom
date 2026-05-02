@@ -10,6 +10,10 @@ class WidgetbookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Widgetbook.material(
+      lightTheme: WlmTheme.light(),
+      darkTheme: WlmTheme.dark(),
+      themeMode: ThemeMode.dark,
+      initialRoute: '/?path=foundations/typography/all-styles',
       addons: [
         MaterialThemeAddon(
           themes: [
@@ -32,17 +36,37 @@ class WidgetbookApp extends StatelessWidget {
             WidgetbookComponent(
               name: 'Tokens',
               useCases: [
-                WidgetbookUseCase(name: 'Spacing', builder: _spacingTokens),
-                WidgetbookUseCase(name: 'Radii', builder: _radiusTokens),
+                WidgetbookUseCase(
+                  name: 'Spacing',
+                  builder: (ctx) =>
+                      _Stage(name: 'Spacing', child: _spacingTokens(ctx)),
+                ),
+                WidgetbookUseCase(
+                  name: 'Radii',
+                  builder: (ctx) =>
+                      _Stage(name: 'Radii', child: _radiusTokens(ctx)),
+                ),
               ],
             ),
             WidgetbookComponent(
               name: 'Typography',
-              useCases: [WidgetbookUseCase(name: 'All styles', builder: _typography)],
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'All styles',
+                  builder: (ctx) =>
+                      _Stage(name: 'Typography', child: _typography(ctx)),
+                ),
+              ],
             ),
             WidgetbookComponent(
               name: 'Palette',
-              useCases: [WidgetbookUseCase(name: 'Scheme swatches', builder: _palette)],
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Scheme swatches',
+                  builder: (ctx) =>
+                      _Stage(name: 'Palette', child: _palette(ctx)),
+                ),
+              ],
             ),
           ],
         ),
@@ -544,8 +568,89 @@ class WidgetbookApp extends StatelessWidget {
 WidgetbookComponent _component(String name, WidgetBuilder builder) =>
     WidgetbookComponent(
       name: name,
-      useCases: [WidgetbookUseCase(name: 'Default', builder: builder)],
+      useCases: [
+        WidgetbookUseCase(
+          name: 'Default',
+          builder: (ctx) => _Stage(name: name, child: builder(ctx)),
+        ),
+      ],
     );
+
+/// Mounts every Widgetbook use case on a wolwoloom-themed stage —
+/// surface backdrop, hairline border, eyebrow label.
+class _Stage extends StatelessWidget {
+  const _Stage({required this.name, required this.child});
+  final String name;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final wlm = WlmThemeExtension.of(context);
+    return ColoredBox(
+      color: scheme.surfaceContainerLowest,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(WlmTokens.spaceLg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'WOLWOLOOM',
+                    style: WlmType.tiny(scheme.outline)
+                        .copyWith(letterSpacing: 1.6),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: WlmTokens.spaceXs,
+                    ),
+                    child: Text('·', style: WlmType.tiny(scheme.outline)),
+                  ),
+                  Text(
+                    name.toUpperCase(),
+                    style: WlmType.tiny(scheme.onSurface)
+                        .copyWith(letterSpacing: 1.6),
+                  ),
+                  const Spacer(),
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: scheme.primary,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: WlmTokens.spaceMd),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: scheme.surface,
+                    borderRadius: BorderRadius.circular(WlmTokens.radMd),
+                    border: Border.all(
+                      color: wlm.hairline,
+                      width: WlmTokens.hairline,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(WlmTokens.radMd),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(WlmTokens.spaceXl),
+                      child: Center(child: child),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 // ── Foundation use cases ───────────────────────────────────────────
 
