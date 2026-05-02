@@ -1,0 +1,28 @@
+# Publishes the wolwoloom package to pub.dev whenever a tag matching
+# `wolwoloom-v*` is pushed (e.g. `wolwoloom-v0.3.4`).
+#
+# Uses pub.dev's trusted publishing (OIDC) — no PUB_TOKEN secret required.
+# One-time setup on pub.dev:
+#   1. Publish the first version manually (`dart pub publish`).
+#   2. Visit https://pub.dev/packages/wolwoloom/admin → "Automated publishing".
+#   3. Enable GitHub Actions publishing for repo `iyashwantsaini/WolwoLoom`
+#      with tag pattern `wolwoloom-v{{version}}`.
+#
+# After that, cutting a release is just:
+#   # bump version in packages/wolwoloom/pubspec.yaml + CHANGELOG.md, commit, then:
+#   git tag wolwoloom-v0.3.4
+#   git push origin wolwoloom-v0.3.4
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'wolwoloom-v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write   # required for OIDC token exchange with pub.dev
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      working-directory: packages/wolwoloom
