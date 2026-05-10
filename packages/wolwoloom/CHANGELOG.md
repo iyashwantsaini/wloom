@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.6 — docs polish
+
+* **README** — expanded the package README with a real components table (all 80+ widgets grouped), design-language section, gallery import snippet, and a typical-page example. The pub.dev front page is now a useful starting point on its own.
+* **No code changes** — same surface as 0.3.5.
+
 ## 0.3.5 — repo rename
 
 * **Repo** — GitHub repo renamed `iyashwantsaini/WolwoLoom` → `iyashwantsaini/wloom`. All `homepage`, `repository`, `issue_tracker` URLs in `pubspec.yaml` and READMEs updated. Pub package name (`wolwoloom`) is unchanged.

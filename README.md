@@ -57,16 +57,17 @@ Full gallery (showcase screens, demo templates, widgetbook stories) lives in [do
 
 | Group        | Widgets                                                                                                                                                                                                |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Foundations  | `WlmTokens`, `WlmColors`, `WlmType`, `WlmMotion`, `WlmTheme`, `WlmThemeExtension`, `WlmBreakpoint`, `WlmResponsive`                                                                                    |
-| Buttons      | `WlmPrimaryButton`, `WlmSecondaryButton`, `WlmGhostButton`, `WlmIconButton`, `WlmHeaderIconButton`, `WlmFab`                                                                                           |
-| Inputs       | `WlmTextField`, `WlmSearchField`, `WlmKeyField`, `WlmCheckbox`, `WlmRadio`, `WlmSegmentedControl`, `WlmDropdown`, `WlmSlider`, `WlmStepper`, `WlmDateField`, `WlmRating`                               |
+| Foundations  | `WlmTokens`, `WlmColors`, `WlmType`, `WlmMotion`, `WlmIcons`, `WlmTheme`, `WlmThemeExtension`, `WlmBreakpoint`, `WlmResponsive`, `WlmResponsiveValue`, `WlmCenteredColumn`                              |
+| Buttons      | `WlmPrimaryButton`, `WlmSecondaryButton`, `WlmGhostButton`, `WlmIconButton`, `WlmHeaderIconButton`, `WlmFab`, `WlmButton`                                                                              |
+| Inputs       | `WlmTextField`, `WlmSearchField`, `WlmKeyField`, `WlmCheckbox`, `WlmRadio`, `WlmToggle`, `WlmSegmentedControl`, `WlmDropdown`, `WlmCombobox`, `WlmSlider`, `WlmStepper`, `WlmDateField`, `WlmRating`, `WlmPinInput`, `WlmForm` |
 | Display      | `WlmBadge`, `WlmChip`, `WlmPill`, `WlmSpecRow`, `WlmDivider`, `WlmAvatar`, `WlmAvatarStack`, `WlmTag`, `WlmKbd`, `WlmStat`, `WlmCallout`, `WlmCodeBlock`, `WlmProgressBar`, `WlmProgressRing`, `WlmTooltip`, `WlmDataTable`, `WlmTimeline`, `WlmMessageBubble`, `WlmKpiCard` |
 | Layout       | `WlmSurface`, `WlmCard`, `WlmPageHeader`, `WlmSectionLabel`, `WlmAppBar`, `WlmAppScaffold`, `WlmAccordion`, `WlmBreadcrumbs`, `WlmDrawer`                                                              |
 | Lists        | `WlmListTile`, `WlmActionRow`, `WlmSwitchTile`, `WlmCheckboxTile`, `WlmRadioTile`                                                                                                                      |
-| Feedback     | `WlmLoader`, `WlmScanBar`, `WlmSkeleton`, `WlmGridSkeleton`, `WlmSnack`, `WlmToast`, `WlmBanner`, `WlmEmptyState`, `WlmErrorState`                                                                     |
-| Navigation   | `WlmBottomNav`, `WlmStepDots`, `WlmTabBar`, `WlmShell`                                                                                                                                                 |
-| Overlays     | `showWlmBottomSheet`, `WlmDialog`, `WlmCommandPalette`, `WlmActionSheet`                                                                                                                              |
+| Feedback     | `WlmLoader`, `WlmScanBar`, `WlmSkeleton`, `WlmGridSkeleton`, `WlmSnack`, `WlmToast`, `WlmToaster`, `WlmBanner`, `WlmEmptyState`, `WlmErrorState`, `WlmRefresh`                                          |
+| Navigation   | `WlmBottomNav`, `WlmStepDots`, `WlmTabBar`, `WlmShell`, `WlmPagination`, `WlmPageRoute`                                                                                                                |
+| Overlays     | `showWlmBottomSheet`, `WlmDialog`, `WlmCommandPalette`, `WlmActionSheet`, `WlmMenu`, `WlmPopover`                                                                                                      |
 | Media        | `WlmNetworkImage`, `WlmProgressiveImage`, `WlmMasonryGrid`                                                                                                                                             |
+| Primitives   | `WlmFocusable`                                                                                                                                                                                          |
 
 `Switch`, `Checkbox`, `Radio`, `AppBar`, `SnackBar`, `BottomNavigationBar`, `Card` and `TextSelection` are restyled automatically by `WlmTheme` — use the stock Material widgets and they'll match.
 
@@ -123,18 +124,20 @@ Three GitHub Actions workflows live under [`.github/workflows/`](.github/workflo
 To cut a release:
 
 ```sh
-git tag v0.2.0
-git push origin v0.2.0
+# Showcase APKs (built and attached to a GitHub Release)
+git tag v0.3.5
+git push origin v0.3.5
+
+# Publish the wolwoloom package to pub.dev (uses trusted publishing / OIDC — no token)
+git tag wolwoloom-v0.3.5
+git push origin wolwoloom-v0.3.5
 ```
 
 ## Roadmap
 
 * `WlmAutocomplete`, `WlmRangeSlider`, `WlmTimeField`
-* Form orchestration (`WlmForm`, validators, error summary)
-* `WlmDataTable`, sortable mono table for dense data
 * Charts (mono sparkline, bar, ring)
 * `go_router` glue for `WlmShell`
-* Built-in onboarding / settings page templates
 * Generated docs site (Dartdoc + the widgetbook web build)
 
 ## Reference
