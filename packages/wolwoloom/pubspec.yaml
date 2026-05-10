@@ -2,7 +2,7 @@ name: wolwoloom
 description: >
   Editorial, typewriter-flavored Flutter design system. Mono type, hairline
   borders, ink-on-paper palette with a periwinkle accent. 100+ Material 3 widgets.
-version: 0.3.4
+version: 0.3.5
 homepage: https://github.com/iyashwantsaini/wloom
 repository: https://github.com/iyashwantsaini/wloom
 issue_tracker: https://github.com/iyashwantsaini/wloom/issues

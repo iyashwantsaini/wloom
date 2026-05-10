@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.5 — repo rename
+
+* **Repo** — GitHub repo renamed `iyashwantsaini/WolwoLoom` → `iyashwantsaini/wloom`. All `homepage`, `repository`, `issue_tracker` URLs in `pubspec.yaml` and READMEs updated. Pub package name (`wolwoloom`) is unchanged.
+* **Docs** — dartdoc / display-string sweep so every brand mention reads `wloom` (the package id stays `wolwoloom`).
+* **CI** — `flutter analyze` now runs with `--no-fatal-infos` to match local conventions.
+
 ## 0.3.4 — pub.dev release
 
 * **Docs** — every public class now has a dartdoc comment (100% coverage).

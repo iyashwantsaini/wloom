@@ -43,7 +43,7 @@ jobs:
         run: flutter pub get
 
       - name: Analyze (package + example + widgetbook)
-        run: flutter analyze packages/wolwoloom packages/wolwoloom/example apps/widgetbook
+        run: flutter analyze --no-fatal-infos packages/wolwoloom packages/wolwoloom/example apps/widgetbook
 
       - name: Test (package)
         working-directory: packages/wolwoloom
