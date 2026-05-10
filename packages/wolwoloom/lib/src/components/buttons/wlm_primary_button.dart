@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_size.dart';
 import 'wlm_button.dart';
 
-/// Filled ink button — Wolwoloom's primary call-to-action.
+/// Filled ink button — wloom's primary call-to-action.
 ///
 /// Thin wrapper over [WlmButton] preserved for source compatibility.
 /// Prefer `WlmButton(variant: WlmButtonVariant.primary, ...)` in new code.

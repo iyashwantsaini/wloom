@@ -84,7 +84,7 @@ Full gallery (showcase screens, demo templates, widgetbook stories) lives in [do
 ## Repository layout
 
 ```
-WolwoLoom/
+wloom/
 ├── packages/wolwoloom/         # the publishable Flutter package
 │   ├── lib/                    # source
 │   ├── example/                # example app (Android / iOS / Web)

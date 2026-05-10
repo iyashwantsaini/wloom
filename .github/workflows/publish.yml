@@ -5,7 +5,7 @@
 # One-time setup on pub.dev:
 #   1. Publish the first version manually (`dart pub publish`).
 #   2. Visit https://pub.dev/packages/wolwoloom/admin → "Automated publishing".
-#   3. Enable GitHub Actions publishing for repo `iyashwantsaini/WolwoLoom`
+#   3. Enable GitHub Actions publishing for repo `iyashwantsaini/wloom`
 #      with tag pattern `wolwoloom-v{{version}}`.
 #
 # After that, cutting a release is just:

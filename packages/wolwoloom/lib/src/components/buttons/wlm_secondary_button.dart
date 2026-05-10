@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_size.dart';
 import 'wlm_button.dart';
 
-/// Hairline-bordered button — Wolwoloom's secondary action.
+/// Hairline-bordered button — wloom's secondary action.
 class WlmSecondaryButton extends StatelessWidget {
   const WlmSecondaryButton({
     super.key,

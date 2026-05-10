@@ -4,7 +4,7 @@ import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 import '../media/wlm_network_image.dart';
 
-/// Wolwoloom avatar shape enum.
+/// wloom avatar shape enum.
 enum WlmAvatarShape { square, circle }
 
 /// Square (default) or circular avatar with initials fallback.

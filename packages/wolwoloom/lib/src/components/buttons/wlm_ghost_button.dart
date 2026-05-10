@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_size.dart';
 import 'wlm_button.dart';
 
-/// Borderless mono label — Wolwoloom's tertiary action.
+/// Borderless mono label — wloom's tertiary action.
 class WlmGhostButton extends StatelessWidget {
   const WlmGhostButton({
     super.key,

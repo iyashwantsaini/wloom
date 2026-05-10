@@ -150,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   WlmListTile(
                     leading: const Icon(Icons.code_rounded, size: 18),
                     title: 'Source',
-                    subtitle: 'github.com/iyashwantsaini/WolwoLoom',
+                    subtitle: 'github.com/iyashwantsaini/wloom',
                     trailing: const Icon(
                         Icons.open_in_new_rounded,
                         size: 16),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
-/// Square floating action button — Wolwoloom keeps the FAB rectangular
+/// Square floating action button — wloom keeps the FAB rectangular
 /// so it shares the kit's visual language. Icon + optional ALL-CAPS
 /// label.
 class WlmFab extends StatelessWidget {

@@ -4,7 +4,7 @@ import '../tokens/wlm_tokens.dart';
 
 /// Responsive breakpoint helper.
 ///
-/// Wolwoloom is designed for **mobile, tablet, and web** out of the box.
+/// wloom is designed for **mobile, tablet, and web** out of the box.
 /// Use this enum (and the [WlmResponsive] / [WlmResponsiveValue] helpers)
 /// instead of raw `MediaQuery` checks so behaviour stays consistent
 /// across components.
@@ -19,7 +19,7 @@ import '../tokens/wlm_tokens.dart';
 ///
 /// Width thresholds follow the
 /// [Material 3 window-size classes](https://m3.material.io/foundations/layout/applying-layout/window-size-classes)
-/// so wolwoloom behaves predictably alongside other Material apps.
+/// so wloom behaves predictably alongside other Material apps.
 enum WlmBreakpoint {
   /// `<600` — phones in portrait.
   compact,
