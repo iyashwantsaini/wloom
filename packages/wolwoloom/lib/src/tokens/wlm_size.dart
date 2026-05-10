@@ -1,4 +1,4 @@
-/// Discrete size step shared by every Wolwoloom component.
+/// Discrete size step shared by every wloom component.
 ///
 /// `sm` is dense / table-like, `md` is the default, `lg` is hero-sized.
 enum WlmSize { sm, md, lg }

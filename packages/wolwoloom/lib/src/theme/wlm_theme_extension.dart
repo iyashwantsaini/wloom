@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../tokens/wlm_colors.dart';
 
-/// Typed access to Wolwoloom-specific tokens via `Theme.of(context)`.
+/// Typed access to wloom-specific tokens via `Theme.of(context)`.
 ///
 /// ```dart
 /// final wlm = Theme.of(context).extension<WlmThemeExtension>()!;
 /// container( color: wlm.hairline, ... );
 /// ```
 @immutable
-/// Wolwoloom theme extension class.
+/// wloom theme extension class.
 class WlmThemeExtension extends ThemeExtension<WlmThemeExtension> {
   const WlmThemeExtension({
     required this.hairline,

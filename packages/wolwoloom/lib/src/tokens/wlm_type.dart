@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Typography helpers. Wolwoloom is mono-typed everywhere — every helper
+/// Typography helpers. wloom is mono-typed everywhere — every helper
 /// here returns a `JetBrains Mono` `TextStyle` configured for one of the
 /// fixed roles (display, h1..h3, body, label, meta, tiny).
 ///

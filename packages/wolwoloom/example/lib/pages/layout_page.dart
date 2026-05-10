@@ -135,6 +135,61 @@ class LayoutPage extends StatelessWidget {
           label: 'Section label',
           children: [WlmSectionLabel('Recent')],
         ),
+        Section(
+          label: 'Centered column',
+          caption:
+              'WlmCenteredColumn caps width on wide screens — the canonical "form on desktop" pattern.',
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(WlmTokens.radSm),
+                border: WlmTokens.hairlineBorder(scheme),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: WlmTokens.spaceLg),
+              child: WlmCenteredColumn(
+                maxWidth: 360,
+                child: Text(
+                  'This column is capped at 360px and centred. '
+                  'Use it for forms, prose, or any narrow content on desktop.',
+                  style: WlmType.bodySmall(scheme.onSurface),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Section(
+          label: 'Responsive',
+          caption:
+              'WlmResponsive picks a builder per breakpoint. WlmResponsiveValue resolves a typed value.',
+          children: [
+            Container(
+              padding: const EdgeInsets.all(WlmTokens.spaceLg),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(WlmTokens.radSm),
+                border: WlmTokens.hairlineBorder(scheme),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'CURRENT BREAKPOINT',
+                    style: WlmType.label(scheme.outline),
+                  ),
+                  const SizedBox(height: WlmTokens.spaceXs),
+                  Text(
+                    WlmBreakpoint.of(context).name,
+                    style: WlmType.h2(scheme.onSurface),
+                  ),
+                  const SizedBox(height: WlmTokens.spaceMd),
+                  Text(
+                    'columns: ${const WlmResponsiveValue<int>(compact: 2, medium: 3, expanded: 4, large: 5).resolve(context)}',
+                    style: WlmType.body(scheme.onSurface),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

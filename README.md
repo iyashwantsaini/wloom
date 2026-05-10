@@ -1,21 +1,21 @@
-# Wolwoloom
+# wloom · design system
 
-> An editorial / typewriter-flavored Flutter design system. Mono typography, hairline borders, ink-on-paper palette with a periwinkle accent. Extracted from the [`wolwo`](https://github.com/iyashwantsaini/wolwo) wallpaper app.
+> An editorial / typewriter-flavored Flutter design system. Mono typography, hairline borders, ink-on-paper palette with a periwinkle accent. Ships as the [`wolwoloom`](https://pub.dev/packages/wolwoloom) package on pub.dev. Extracted from the [`wolwo`](https://github.com/iyashwantsaini/wolwo) wallpaper app.
 
 [![pub package](https://img.shields.io/pub/v/wolwoloom.svg)](https://pub.dev/packages/wolwoloom)
 [![pub points](https://img.shields.io/pub/points/wolwoloom)](https://pub.dev/packages/wolwoloom/score)
 [![pub likes](https://img.shields.io/pub/likes/wolwoloom)](https://pub.dev/packages/wolwoloom/score)
-[![CI](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/ci.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/ci.yml)
-[![Pages](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/pages.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/pages.yml)
-[![Publish](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/publish.yml/badge.svg)](https://github.com/iyashwantsaini/WolwoLoom/actions/workflows/publish.yml)
+[![CI](https://github.com/iyashwantsaini/wloom/actions/workflows/ci.yml/badge.svg)](https://github.com/iyashwantsaini/wloom/actions/workflows/ci.yml)
+[![Pages](https://github.com/iyashwantsaini/wloom/actions/workflows/pages.yml/badge.svg)](https://github.com/iyashwantsaini/wloom/actions/workflows/pages.yml)
+[![Publish](https://github.com/iyashwantsaini/wloom/actions/workflows/publish.yml/badge.svg)](https://github.com/iyashwantsaini/wloom/actions/workflows/publish.yml)
 [![Flutter](https://img.shields.io/badge/Flutter-3.24%2B-02569B?logo=flutter)](https://flutter.dev)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 **Showcase** —
 
 * Package on pub.dev → **<https://pub.dev/packages/wolwoloom>**
-* Live web gallery → **<https://iyashwantsaini.github.io/WolwoLoom/>** (auto-deploys on every push to `main`).
-* Android APKs (catalog app + widgetbook) → **[Releases](https://github.com/iyashwantsaini/WolwoLoom/releases/latest)** (built on every `v*` tag).
+* Live web gallery → **<https://iyashwantsaini.github.io/wloom/>** (auto-deploys on every push to `main`).
+* Android APKs (catalog app + widgetbook) → **[Releases](https://github.com/iyashwantsaini/wloom/releases/latest)** (built on every `v*` tag).
 
 ```dart
 import 'package:wolwoloom/wolwoloom.dart';
@@ -46,12 +46,12 @@ Two apps live in this repo and are both built by CI on every push to `main`:
 
 | Showcase | What it is | Where to find it |
 | --- | --- | --- |
-| **Catalog app** ([`packages/wolwoloom/example`](packages/wolwoloom/example)) | A Flutter app that opens straight into a categorised catalog of every component, with a theme toggle in the app bar. Built for Android / iOS / desktop / web. | APK on the latest [release](https://github.com/iyashwantsaini/WolwoLoom/releases/latest) — `wolwoloom-example-*.apk` |
-| **Widgetbook gallery** ([`apps/widgetbook`](apps/widgetbook)) | Interactive component gallery with knobs, light/dark themes, and viewport switching. Same source ships as web *and* APK. | Web: <https://iyashwantsaini.github.io/WolwoLoom/> · APK: `wolwoloom-widgetbook-*.apk` on the latest release |
+| **wloom** ([`packages/wolwoloom/example`](packages/wolwoloom/example)) | A Flutter app that opens straight into a categorised showcase of every component, with a theme toggle in the app bar. Built for Android / iOS / desktop / web. | APK on the latest [release](https://github.com/iyashwantsaini/wloom/releases/latest) — `wloom-showcase-*.apk` |
+| **wloom wb** ([`apps/widgetbook`](apps/widgetbook)) | Interactive component gallery with knobs, light/dark themes, and viewport switching. Same source ships as web *and* APK. | Web: <https://iyashwantsaini.github.io/wloom/> · APK: `wloom-wb-*.apk` on the latest release |
 
 ### Screenshots
 
-Full gallery (catalog screens, demo templates, widgetbook stories) lives in [docs/README.md](docs/README.md).
+Full gallery (showcase screens, demo templates, widgetbook stories) lives in [docs/README.md](docs/README.md). The recipe an agent can follow to refresh every shot is in [docs/screenshots/SKILL.md](docs/screenshots/SKILL.md).
 
 ## Components
 
@@ -99,12 +99,12 @@ WolwoLoom/
 ## Run locally
 
 ```sh
-# Catalog app — runs the design system on Android / iOS / desktop / web
+# wloom — the showcase app (runs the design system on Android / iOS / desktop / web)
 cd packages/wolwoloom/example
 flutter run                      # Android / iOS / desktop
 flutter run -d chrome            # Web
 
-# Widgetbook — interactive component gallery (the showcase site)
+# wloom wb — interactive widgetbook gallery
 cd apps/widgetbook
 flutter run -d chrome            # browse every component with knobs
 flutter build web                # ship the gallery as a static site
@@ -118,7 +118,7 @@ Three GitHub Actions workflows live under [`.github/workflows/`](.github/workflo
 | --- | --- | --- |
 | [`ci.yml`](.github/workflows/ci.yml) | Push & PR to `main` | `flutter analyze` across the package, example and widgetbook · `flutter test` for the package. |
 | [`pages.yml`](.github/workflows/pages.yml) | Push to `main` (paths: `apps/widgetbook/**`, `packages/wolwoloom/**`) · `workflow_dispatch` | Builds the widgetbook for web and deploys it to GitHub Pages. **One-time setup:** *Repo → Settings → Pages → Source: GitHub Actions.* |
-| [`release.yml`](.github/workflows/release.yml) | Push of any `v*` tag · `workflow_dispatch` | Builds release APKs for both showcase apps (split-per-ABI + universal) and publishes them to a GitHub Release. Optionally signs with a keystore from repo secrets — see the comments at the top of the file. |
+| [`release.yml`](.github/workflows/release.yml) | Push of any `v*` tag · `workflow_dispatch` | Builds release APKs for both showcase apps (`wloom` and `wloom wb`, split-per-ABI + universal) and publishes them to a GitHub Release. Optionally signs with a keystore from repo secrets — see the comments at the top of the file. |
 
 To cut a release:
 

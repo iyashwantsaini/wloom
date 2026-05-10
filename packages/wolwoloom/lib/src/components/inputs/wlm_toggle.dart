@@ -129,7 +129,7 @@ class WlmToggleGroup<T> extends StatelessWidget {
   }
 }
 
-/// Wolwoloom toggle item class.
+/// wloom toggle item class.
 class WlmToggleItem<T> {
   const WlmToggleItem({required this.value, required this.label, this.icon});
   final T value;

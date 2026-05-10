@@ -115,7 +115,7 @@ class WlmToaster extends StatefulWidget {
   State<WlmToaster> createState() => WlmToasterState();
 }
 
-/// Wolwoloom toaster state class.
+/// wloom toaster state class.
 class WlmToasterState extends State<WlmToaster> {
   final List<WlmToastEntry> _entries = [];
   final Map<Key, Timer> _timers = {};

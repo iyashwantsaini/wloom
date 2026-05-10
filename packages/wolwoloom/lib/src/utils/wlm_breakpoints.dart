@@ -1,11 +1,25 @@
 import 'package:flutter/widgets.dart';
 
+import '../tokens/wlm_tokens.dart';
+
 /// Responsive breakpoint helper.
+///
+/// Wolwoloom is designed for **mobile, tablet, and web** out of the box.
+/// Use this enum (and the [WlmResponsive] / [WlmResponsiveValue] helpers)
+/// instead of raw `MediaQuery` checks so behaviour stays consistent
+/// across components.
 ///
 /// ```dart
 /// final bp = WlmBreakpoint.of(context);
-/// if (bp.isCompact) ... else ...
+/// if (bp.isHandheld) {
+///   return _MobileLayout();
+/// }
+/// return _TabletLayout();
 /// ```
+///
+/// Width thresholds follow the
+/// [Material 3 window-size classes](https://m3.material.io/foundations/layout/applying-layout/window-size-classes)
+/// so wolwoloom behaves predictably alongside other Material apps.
 enum WlmBreakpoint {
   /// `<600` — phones in portrait.
   compact,
@@ -22,12 +36,16 @@ enum WlmBreakpoint {
   /// `≥1600` — wide desktops.
   extraLarge;
 
-  static WlmBreakpoint of(BuildContext context) {
-    final w = MediaQuery.sizeOf(context).width;
-    if (w < 600) return WlmBreakpoint.compact;
-    if (w < 840) return WlmBreakpoint.medium;
-    if (w < 1200) return WlmBreakpoint.expanded;
-    if (w < 1600) return WlmBreakpoint.large;
+  /// Resolve the active breakpoint from [context].
+  static WlmBreakpoint of(BuildContext context) =>
+      fromWidth(MediaQuery.sizeOf(context).width);
+
+  /// Pure helper — resolve a breakpoint from a raw pixel [width].
+  static WlmBreakpoint fromWidth(double width) {
+    if (width < 600) return WlmBreakpoint.compact;
+    if (width < 840) return WlmBreakpoint.medium;
+    if (width < 1200) return WlmBreakpoint.expanded;
+    if (width < 1600) return WlmBreakpoint.large;
     return WlmBreakpoint.extraLarge;
   }
 
@@ -39,8 +57,55 @@ enum WlmBreakpoint {
   bool get isDesktop => index >= WlmBreakpoint.expanded.index;
 }
 
+/// Resolves a value per-breakpoint without rebuilding a widget tree.
+///
+/// Useful for spacing, font-sizes, or grid column counts:
+///
+/// ```dart
+/// final cols = const WlmResponsiveValue<int>(
+///   compact: 2,
+///   medium: 3,
+///   expanded: 4,
+///   large: 5,
+/// ).resolve(context);
+/// ```
+class WlmResponsiveValue<T> {
+  const WlmResponsiveValue({
+    required this.compact,
+    this.medium,
+    this.expanded,
+    this.large,
+    this.extraLarge,
+  });
+
+  final T compact;
+  final T? medium;
+  final T? expanded;
+  final T? large;
+  final T? extraLarge;
+
+  T resolve(BuildContext context) => resolveFor(WlmBreakpoint.of(context));
+
+  T resolveFor(WlmBreakpoint bp) => switch (bp) {
+        WlmBreakpoint.extraLarge =>
+          extraLarge ?? large ?? expanded ?? medium ?? compact,
+        WlmBreakpoint.large => large ?? expanded ?? medium ?? compact,
+        WlmBreakpoint.expanded => expanded ?? medium ?? compact,
+        WlmBreakpoint.medium => medium ?? compact,
+        WlmBreakpoint.compact => compact,
+      };
+}
+
 /// Renders the first builder whose breakpoint matches the current width.
 /// Falls back to [compact] if no other builder is supplied.
+///
+/// ```dart
+/// WlmResponsive(
+///   compact: (_) => const _MobileShell(),
+///   expanded: (_) => const _TabletShell(),
+///   large: (_) => const _DesktopShell(),
+/// );
+/// ```
 class WlmResponsive extends StatelessWidget {
   const WlmResponsive({
     super.key,
@@ -69,3 +134,41 @@ class WlmResponsive extends StatelessWidget {
     };
   }
 }
+
+/// Caps a child's width to a comfortable reading / form measure and
+/// centers it horizontally — the canonical "page on a wide screen"
+/// pattern.
+///
+/// ```dart
+/// WlmCenteredColumn(
+///   maxWidth: 720,
+///   child: ListView(...),
+/// );
+/// ```
+class WlmCenteredColumn extends StatelessWidget {
+  const WlmCenteredColumn({
+    super.key,
+    required this.child,
+    this.maxWidth = 720,
+    this.padding,
+  });
+
+  final Widget child;
+  final double maxWidth;
+  final EdgeInsetsGeometry? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: maxWidth),
+        child: Padding(
+          padding: padding ??
+              const EdgeInsets.symmetric(horizontal: WlmTokens.gutter),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+

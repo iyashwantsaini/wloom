@@ -1,11 +1,11 @@
 {
-    "name": "Wolwoloom Widgetbook",
-    "short_name": "Wolwoloom WB",
+    "name": "wloom wb",
+    "short_name": "wloom wb",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0a0a0c",
     "theme_color": "#0a0a0c",
-    "description": "Interactive widgetbook for the wolwoloom design system.",
+    "description": "wloom wb — interactive widgetbook for the wloom design system.",
     "orientation": "any",
     "prefer_related_applications": false,
     "icons": [

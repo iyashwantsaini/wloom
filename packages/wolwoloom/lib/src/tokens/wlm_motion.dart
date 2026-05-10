@@ -1,6 +1,6 @@
 import 'package:flutter/animation.dart';
 
-/// Motion tokens. Wolwoloom keeps animations short and quiet.
+/// Motion tokens. wloom keeps animations short and quiet.
 class WlmMotion {
   WlmMotion._();
 

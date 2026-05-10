@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
-/// Wolwoloom-styled top app bar. Transparent background by default,
+/// wloom-styled top app bar. Transparent background by default,
 /// hairline divider at the bottom only when [showDivider] is true.
 class WlmAppBar extends StatelessWidget implements PreferredSizeWidget {
   const WlmAppBar({

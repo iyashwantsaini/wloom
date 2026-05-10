@@ -3,9 +3,9 @@ description: >
   Editorial, typewriter-flavored Flutter design system. Mono type, hairline
   borders, ink-on-paper palette with a periwinkle accent. 100+ Material 3 widgets.
 version: 0.3.4
-homepage: https://github.com/iyashwantsaini/WolwoLoom
-repository: https://github.com/iyashwantsaini/WolwoLoom
-issue_tracker: https://github.com/iyashwantsaini/WolwoLoom/issues
+homepage: https://github.com/iyashwantsaini/wloom
+repository: https://github.com/iyashwantsaini/wloom
+issue_tracker: https://github.com/iyashwantsaini/wloom/issues
 topics:
   - design-system
   - ui

@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../tokens/wlm_tokens.dart';
 
-/// Thin wrapper around `MasonryGridView.count` with Wolwoloom defaults
+/// Thin wrapper around `MasonryGridView.count` with wloom defaults
 /// (10px gap, edge insets, 2 columns).
 class WlmMasonryGrid extends StatelessWidget {
   const WlmMasonryGrid({

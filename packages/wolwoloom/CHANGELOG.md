@@ -9,7 +9,7 @@
 ## 0.3.3 — polish & branding
 
 * **Catalog** — hero CTA row uses `Wrap` so the WIDGETBOOK ghost button no longer overflows on narrow viewports.
-* **Apps** — both showcase apps re-branded: APK label `Wolwoloom` / `Wolwoloom WB`, web titles polished, branded `wlm` launcher icons across all Android density buckets.
+* **Apps** — both showcase apps re-branded: APK label `wloom` / `wloom wb`, web titles polished, branded `wlm` launcher icons across all Android density buckets.
 * **Tooling** — `scripts/gen_icons.py` now also writes Android `mipmap-*/ic_launcher.png` so a single run covers web + Android for both apps.
 
 ## 0.3.2 — docs

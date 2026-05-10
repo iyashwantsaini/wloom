@@ -1,12 +1,15 @@
-# wolwoloom_widgetbook
+# wloom wb — widgetbook
 
-A new Flutter project.
+The `wloom wb` interactive component gallery (knobs + light/dark themes + viewport switching). Same source ships as web *and* APK.
 
-## Getting Started
+Pubspec name `wolwoloom_widgetbook` is kept for tooling stability. Display name (Android/iOS/web) is **wloom wb**.
 
-This project is a starting point for a Flutter application.
+## Run locally
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+flutter pub get
+flutter run -d chrome
+```
 
 - [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
 - [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)

@@ -72,7 +72,7 @@ class WlmDropdown<T> extends StatelessWidget {
   }
 }
 
-/// Wolwoloom dropdown item class.
+/// wloom dropdown item class.
 class WlmDropdownItem<T> {
   const WlmDropdownItem({required this.value, required this.label});
   final T value;

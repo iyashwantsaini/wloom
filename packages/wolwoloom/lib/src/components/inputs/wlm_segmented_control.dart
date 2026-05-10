@@ -3,7 +3,17 @@ import 'package:flutter/material.dart';
 import '../../tokens/wlm_tokens.dart';
 import '../../tokens/wlm_type.dart';
 
-/// Wolwoloom segment class.
+/// Visual variant of [WlmSegmentedControl].
+enum WlmSegmentedVariant {
+  /// Hairline-bordered track with rounded selected pill (default).
+  track,
+
+  /// Borderless row of all-caps text segments separated by hairlines —
+  /// ideal for "All / Photos / Videos" tab pickers.
+  pill,
+}
+
+/// wloom segment class.
 class WlmSegment<T> {
   const WlmSegment({required this.value, required this.label, this.icon});
   final T value;
@@ -20,15 +30,104 @@ class WlmSegmentedControl<T> extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.expand = false,
+    this.variant = WlmSegmentedVariant.track,
   });
+
+  /// Convenience for text-only pill segments.
+  ///
+  /// ```dart
+  /// WlmSegmentedControl.text(
+  ///   segments: const ['ALL', 'PHOTOS', 'VIDEOS'],
+  ///   value: tab,
+  ///   onChanged: (v) => setState(() => tab = v),
+  /// );
+  /// ```
+  static WlmSegmentedControl<String> text({
+    Key? key,
+    required List<String> segments,
+    required String value,
+    required ValueChanged<String> onChanged,
+    bool expand = true,
+    WlmSegmentedVariant variant = WlmSegmentedVariant.pill,
+  }) {
+    return WlmSegmentedControl<String>(
+      key: key,
+      segments: [
+        for (final s in segments) WlmSegment(value: s, label: s),
+      ],
+      value: value,
+      onChanged: onChanged,
+      expand: expand,
+      variant: variant,
+    );
+  }
 
   final List<WlmSegment<T>> segments;
   final T value;
   final ValueChanged<T> onChanged;
   final bool expand;
+  final WlmSegmentedVariant variant;
 
   @override
   Widget build(BuildContext context) {
+    return variant == WlmSegmentedVariant.pill
+        ? _buildPill(context)
+        : _buildTrack(context);
+  }
+
+  Widget _buildPill(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: scheme.outlineVariant.withValues(alpha: 0.30),
+            width: WlmTokens.hairline,
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+        children: [
+          for (final s in segments)
+            Expanded(
+              flex: expand ? 1 : 0,
+              child: InkWell(
+                onTap: () => onChanged(s.value),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: WlmTokens.spaceLg,
+                    vertical: WlmTokens.spaceMd,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: s.value == value
+                            ? scheme.onSurface
+                            : Colors.transparent,
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      s.label.toUpperCase(),
+                      style: WlmType.label(
+                        s.value == value
+                            ? scheme.onSurface
+                            : scheme.onSurfaceVariant,
+                      ).copyWith(letterSpacing: 1.4),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTrack(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final activeIndex = segments.indexWhere((s) => s.value == value);
 

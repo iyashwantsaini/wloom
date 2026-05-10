@@ -1,4 +1,4 @@
-/// Wolwoloom — editorial / typewriter Flutter design system.
+/// wloom — editorial / typewriter Flutter design system.
 ///
 /// Import this single file to get every public widget, token and theme.
 ///
@@ -20,12 +20,19 @@ export 'src/tokens/wlm_type.dart';
 export 'src/tokens/wlm_motion.dart';
 export 'src/tokens/wlm_size.dart';
 export 'src/tokens/wlm_density.dart';
+export 'src/tokens/wlm_icons.dart';
 export 'src/theme/wlm_theme.dart';
 export 'src/theme/wlm_theme_extension.dart';
 
 // Utilities
 export 'src/utils/wlm_breakpoints.dart';
 export 'src/utils/wlm_a11y.dart';
+
+// Navigation primitives
+export 'src/navigation/wlm_page_route.dart';
+
+// Components — primitives
+export 'src/components/primitives/wlm_focusable.dart';
 
 // Components — buttons
 export 'src/components/buttons/wlm_button.dart';
@@ -103,6 +110,7 @@ export 'src/components/feedback/wlm_toaster.dart';
 export 'src/components/feedback/wlm_toast.dart';
 export 'src/components/feedback/wlm_empty_state.dart';
 export 'src/components/feedback/wlm_error_state.dart';
+export 'src/components/feedback/wlm_refresh.dart';
 
 // Components — navigation
 export 'src/components/navigation/wlm_bottom_nav.dart';

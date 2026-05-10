@@ -377,7 +377,7 @@ class WidgetbookApp extends StatelessWidget {
               width: 360,
               child: WlmPageHeader(
                 eyebrow: ctx.knobs.string(label: 'Eyebrow', initialValue: 'design system'),
-                title: ctx.knobs.string(label: 'Title', initialValue: 'Wolwoloom'),
+                title: ctx.knobs.string(label: 'Title', initialValue: 'wloom'),
                 subtitle: ctx.knobs.string(label: 'Subtitle', initialValue: '30+ components'),
                 actions: [
                   WlmHeaderIconButton(icon: Icons.search_rounded, onPressed: () {}),
@@ -392,7 +392,7 @@ class WidgetbookApp extends StatelessWidget {
             _component('App bar', (ctx) => SizedBox(
               width: 360,
               child: WlmAppBar(
-                title: ctx.knobs.string(label: 'Title', initialValue: 'Wolwoloom'),
+                title: ctx.knobs.string(label: 'Title', initialValue: 'wloom'),
                 actions: [
                   WlmHeaderIconButton(icon: Icons.search_rounded, onPressed: () {}),
                 ],
@@ -405,7 +405,7 @@ class WidgetbookApp extends StatelessWidget {
                 title: 'Pricing',
                 subtitle: 'How is this priced?',
                 child: Text(
-                  'Wolwoloom is MIT-licensed and free forever.',
+                  'wloom is MIT-licensed and free forever.',
                   style: WlmType.bodySmall(Theme.of(ctx).colorScheme.onSurfaceVariant),
                 ),
               ),
@@ -421,7 +421,7 @@ class WidgetbookApp extends StatelessWidget {
               width: 280,
               height: 480,
               child: WlmDrawer(
-                title: 'Wolwoloom',
+                title: 'wloom',
                 subtitle: 'Editorial design system',
                 children: const [
                   WlmListTile(title: 'Home'),
@@ -495,7 +495,7 @@ class WidgetbookApp extends StatelessWidget {
               width: 480,
               child: WlmBanner(
                 title: 'Update available',
-                message: 'A new version of Wolwoloom is ready.',
+                message: 'A new version of wloom is ready.',
                 actionLabel: 'Update',
                 tone: ctx.knobs.object.dropdown(
                   label: 'Tone',
@@ -549,7 +549,7 @@ class WidgetbookApp extends StatelessWidget {
               width: 360,
               height: 540,
               child: WlmShell(
-                appBarTitle: 'Wolwoloom',
+                appBarTitle: 'wloom',
                 items: const [
                   WlmNavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home'),
                   WlmNavItem(icon: Icons.search_rounded, label: 'Search'),
@@ -665,7 +665,7 @@ WidgetbookComponent _component(String name, WidgetBuilder builder) =>
       ],
     );
 
-/// Mounts every Widgetbook use case on a wolwoloom-themed stage —
+/// Mounts every Widgetbook use case on a wloom-themed stage —
 /// surface backdrop, hairline border, eyebrow label.
 class _Stage extends StatelessWidget {
   const _Stage({required this.name, required this.child});
@@ -687,7 +687,7 @@ class _Stage extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'WOLWOLOOM',
+                    'WLOOM',
                     style: WlmType.tiny(scheme.outline)
                         .copyWith(letterSpacing: 1.6),
                   ),

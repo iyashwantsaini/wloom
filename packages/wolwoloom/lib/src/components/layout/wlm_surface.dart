@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../theme/wlm_theme_extension.dart';
 import '../../tokens/wlm_tokens.dart';
 
-/// Generic styled container that exposes the full Wolwoloom modifier API.
+/// Generic styled container that exposes the full wloom modifier API.
 ///
 /// Use this when you need to wrap arbitrary content with a consistent
 /// background / border / radius / padding — without writing a one-off
@@ -124,8 +124,8 @@ class WlmSurface extends StatelessWidget {
   }
 }
 
-/// Wolwoloom surface border enum.
+/// wloom surface border enum.
 enum WlmSurfaceBorder { none, hairline, bold }
 
-/// Wolwoloom surface shadow enum.
+/// wloom surface shadow enum.
 enum WlmSurfaceShadow { none, soft, medium }

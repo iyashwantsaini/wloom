@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../tokens/wlm_tokens.dart';
 
-/// Show a Wolwoloom-styled modal bottom sheet — drag handle, surface
+/// Show a wloom-styled modal bottom sheet — drag handle, surface
 /// background, hairline outline along the top edge.
 Future<T?> showWlmBottomSheet<T>({
   required BuildContext context,

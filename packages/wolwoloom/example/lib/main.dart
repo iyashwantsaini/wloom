@@ -58,7 +58,7 @@ class _ExampleAppState extends State<ExampleApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wolwoloom Catalog',
+      title: 'wloom',
       theme: WlmTheme.light(),
       darkTheme: WlmTheme.dark(),
       themeMode: _mode,
@@ -242,7 +242,7 @@ class _CatalogHome extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: WlmAppBar(
-        title: 'wolwoloom',
+        title: 'wloom',
         actions: [
           WlmHeaderIconButton(
             icon: Icons.code_rounded,
@@ -643,7 +643,7 @@ class _Footer extends StatelessWidget {
         Row(
           children: [
             Text(
-              'wolwoloom · v0.3.0',
+              'wloom · v0.3.0',
               style: WlmType.tiny(scheme.outline),
             ),
             const Spacer(),

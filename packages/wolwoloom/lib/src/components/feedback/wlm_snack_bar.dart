@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Fire a Wolwoloom-styled snack bar (the theme has already restyled
+/// Fire a wloom-styled snack bar (the theme has already restyled
 /// Material's defaults — this is just a tiny convenience helper).
 ///
 /// ```dart

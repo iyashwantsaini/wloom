@@ -1,12 +1,15 @@
-# wolwoloom_example
+# wloom — showcase app
 
-A new Flutter project.
+The `wloom` showcase app: a Flutter app that opens straight into a categorised gallery of every component, with a theme toggle in the app bar. Built for Android / iOS / desktop / web.
 
-## Getting Started
+Pubspec name `wolwoloom_example` is kept for tooling stability. Display name (Android/iOS/web) is **wloom**.
 
-This project is a starting point for a Flutter application.
+## Run locally
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+flutter pub get
+flutter run
+```
 
 - [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
 - [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)

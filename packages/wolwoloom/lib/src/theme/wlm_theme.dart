@@ -6,7 +6,7 @@ import '../tokens/wlm_colors.dart';
 import '../tokens/wlm_tokens.dart';
 import 'wlm_theme_extension.dart';
 
-/// Wolwoloom theme builders.
+/// wloom theme builders.
 ///
 /// ```dart
 /// MaterialApp(
@@ -17,6 +17,18 @@ import 'wlm_theme_extension.dart';
 /// ```
 class WlmTheme {
   const WlmTheme._();
+
+  /// Convenience accessor for the active [WlmThemeExtension].
+  ///
+  /// Replaces the awkward `Theme.of(context).extension<WlmThemeExtension>()!`
+  /// dance:
+  ///
+  /// ```dart
+  /// final wlm = WlmTheme.of(context);
+  /// container( color: wlm.muted );
+  /// ```
+  static WlmThemeExtension of(BuildContext context) =>
+      WlmThemeExtension.of(context);
 
   static ThemeData light() {
     final base = ThemeData.light(useMaterial3: true);
@@ -195,6 +207,7 @@ class WlmTheme {
       splashFactory: NoSplash.splashFactory,
       highlightColor: Colors.transparent,
       hoverColor: onSurface.withValues(alpha: 0.04),
+      focusColor: onSurface.withValues(alpha: 0.08),
     );
   }
 }

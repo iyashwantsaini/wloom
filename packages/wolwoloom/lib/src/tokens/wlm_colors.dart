@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// (gradients, marketing surfaces, custom illustrations).
 ///
 /// Prefer `Theme.of(context).colorScheme` everywhere else — it is what
-/// every Wolwoloom component reads from.
+/// every wloom component reads from.
 class WlmColors {
   WlmColors._();
 

@@ -1,4 +1,4 @@
-"""Generate wolwoloom editorial icon set: 'wlm' lockup on ink with periwinkle accent."""
+"""Generate wloom editorial icon set: 'wlm' lockup on ink with periwinkle accent."""
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -46,7 +46,7 @@ def draw_icon(size: int, *, maskable: bool = False) -> Image.Image:
         f_eye = _font(MONO, eyebrow_size)
         d.text(
             (pad + max(4, int(size * 0.03)), pad + max(4, int(size * 0.03))),
-            "WOLWOLOOM",
+            "WLOOM",
             fill=DIMMED,
             font=f_eye,
         )

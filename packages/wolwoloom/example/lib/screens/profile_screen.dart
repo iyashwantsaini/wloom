@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: WlmTokens.spaceLg),
                 Text(
                   'Designer · loves monospaced UI, mechanical keyboards, '
-                  'and editorial typography. Building wolwoloom with too '
+                  'and editorial typography. Building wloom with too '
                   'much coffee.',
                   style: WlmType.body(scheme.onSurfaceVariant)
                       .copyWith(height: 1.5),
@@ -170,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final scheme = Theme.of(context).colorScheme;
     return [
       for (final p in const [
-        ['Shipping wolwoloom 0.3', '2d', 'New components, new screens.'],
+        ['Shipping wloom 0.3', '2d', 'New components, new screens.'],
         ['Editorial UI is back', '5d', 'Hairline borders forever.'],
         ['On density tokens', '1w', 'Why one density never fits all.'],
       ])
@@ -204,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<Widget> _projects(BuildContext context) {
     return [
       for (final p in const [
-        ['wolwoloom', 'Editorial Flutter design system', '★ 1.2k'],
+        ['wloom', 'Editorial Flutter design system', '★ 1.2k'],
         ['ink-on-paper', 'Color tokens for monospace UIs', '★ 312'],
         ['mono-icons', 'Hairline icon set', '★ 98'],
       ])
